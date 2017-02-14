@@ -6,7 +6,25 @@
 \alias{secret-package}
 \title{Share Sensitive Information in R Packages}
 \description{
-Allow sharing sensitive information, for example passwords, 'API' keys,
+Allow sharing sensitive information, for example passwords, API keys,
 etc., in R packages, using public key cryptography.
 }
+\details{
+A vault is a directory, typically inside an R package, that
+stores a number of secrets. Each secret is shared among a group of
+users. Users are identified using their public keys.
 
+The package implements the following operations:
+\itemize{
+\item Adding a user: \code{\link[=add_user]{add_user()}}, \code{\link[=add_github_user]{add_github_user()}}.
+\item Deleting a user: \code{\link[=delete_user]{delete_user()}}.
+\item List users: \code{\link[=list_users]{list_users()}}.
+\item Adding a secret: \code{\link[=add_secret]{add_secret()}}.
+\item Retrieving a secret: \code{\link[=get_secret]{get_secret()}}.
+\item Updating a secret: \code{\link[=update_secret]{update_secret()}}.
+\item Deleting a secret: \code{\link[=delete_secret]{delete_secret()}}.
+\item List secrets: \code{\link[=list_secrets]{list_secrets()}}.
+\item Sharing a secret: \code{\link[=share_secret]{share_secret()}}. Query or set the set of
+users that have access to a secret.
+}
+}
