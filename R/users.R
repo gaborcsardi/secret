@@ -13,7 +13,7 @@
 #' @export
 
 add_user <- function(email, public_key, vault = NULL) {
-
+  vault <- find_vault(vault)
 }
 
 #' Add a user via their GitHub username
