@@ -12,6 +12,7 @@ BugReports: https://github.com/gaborcsardi/secret/issues
 RoxygenNote: 6.0.1
 Roxygen: list(markdown = TRUE)
 Imports:
+    assertthat,
     openssl,
     rprojroot
 Suggests: 

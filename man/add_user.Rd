@@ -11,7 +11,12 @@ add_user(email, public_key, vault = NULL)
 users.}
 
 \item{public_key}{Public key of the user. This is used to encrypt
-the secrets for the different users.}
+the secrets for the different users. It can be
+\itemize{
+\item a string containing a PEM,
+\item a file name that points to a PEM file,
+\item a \code{pubkey} object created via the \code{openssl} package.
+}}
 
 \item{vault}{Vault location. TODO}
 }

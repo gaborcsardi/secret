@@ -93,3 +93,12 @@ everyone <- function() {
 noone <- function() {
 
 }
+
+## ----------------------------------------------------------------------
+## Internals
+
+list_user_secrets <- function(vault, email, existing = TRUE) {
+  secrets <- normalizePath(dir(file.path(vault, "secrets")))
+  secrets <- Filter(is_dir, secrets)
+  file.path(vault, "secrets", secrets, paste0(email, ".enc"))
+}

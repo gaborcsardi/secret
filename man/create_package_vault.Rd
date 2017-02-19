@@ -8,11 +8,26 @@ create_package_vault(path = ".")
 }
 \arguments{
 \item{path}{Path to the R package. A file or directory within the
-package is fine, too.}
+package is fine, too. If the vault directory already exists, a message
+is given, and the function does nothing.}
 }
 \value{
 The directory of the vault, invisibly.
 }
 \description{
-Create a vault in an R package
+A vault is stored in the \code{inst/vault} directory of a package, and
+has two parts, in two corresponding directories: \code{users} and \code{secrets}.
+}
+\details{
+In \code{users}, each file contains a public key in PEM format. The name of
+the file is the identifier of the key, an arbitrary name. We suggest
+that you use email addresses to identify public keys.
+
+In \code{secrets}, each secret is stored in its own directory.
+The directory of a secret contains
+\enumerate{
+\item the secret, encrypted with its own AES key, and
+\item the AES key, encrypted with the public keys of all users that
+have access to the secret, each in its own file.
+}
 }
