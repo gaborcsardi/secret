@@ -65,6 +65,7 @@ get_secret <- function(name, key = my_key(), vault = NULL) {
 
 #' Update a secret in the vault.
 #'
+#' @inheritParams get_secret
 #' @inheritParams add_secret
 #'
 #' @export

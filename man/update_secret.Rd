@@ -7,11 +7,13 @@
 update_secret(name, value, key = my_key(), vault = NULL)
 }
 \arguments{
-\item{name}{Name of the secret, a string that can contain alphanumeric
-characters, underscores, dashes and dots.}
+\item{name}{Name of the secret.}
 
 \item{value}{Value of the secret, an arbitrary R object that
 will be serialized using \code{\link[base:serialize]{base::serialize()}}.}
+
+\item{key}{The private RSA key to use. It defaults to the current
+user's default key.}
 
 \item{vault}{Vault location. Currently, vaults must be in R packages,
 in the \code{inst/vault} directory.}
