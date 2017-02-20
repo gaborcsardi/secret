@@ -4,10 +4,11 @@
 \alias{update_secret}
 \title{Update a secret in the vault.}
 \usage{
-update_secret(key, vault = NULL)
+update_secret(name, vault = NULL)
 }
 \arguments{
-\item{key}{Name of the secret.}
+\item{name}{Name of the secret, a string that can contain alphanumeric
+characters, underscores, dashes and dots.}
 
 \item{vault}{Vault location. TODO}
 }

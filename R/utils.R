@@ -8,3 +8,7 @@ create_dir <- function(path) {
 is_dir <- function(x) {
   file.info(x)$isdir
 }
+
+read_raw <- function(path) {
+  readBin(path, "raw", n = file.info(path)$size)
+}

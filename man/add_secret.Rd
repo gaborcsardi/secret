@@ -4,13 +4,16 @@
 \alias{add_secret}
 \title{Add a new secret to the vault}
 \usage{
-add_secret(key, value, vault = NULL)
+add_secret(name, value, email, vault = NULL)
 }
 \arguments{
-\item{key}{Name of the secret.}
+\item{name}{Name of the secret, a string that can contain alphanumeric
+characters, underscores, dashes and dots.}
 
 \item{value}{Value of the secret, an arbitrary R object that
 will be saved to a file using \code{\link[base:save]{base::save()}}.}
+
+\item{email}{User that will have access to the secret.}
 
 \item{vault}{Vault location. TODO}
 }

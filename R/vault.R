@@ -73,3 +73,25 @@ find_vault <- function(vault) {
 get_user_file <- function(vault, email) {
   file.path(vault, "users", paste0(email, ".pem"))
 }
+
+get_secret_file <- function(vault, name) {
+  file.path(vault, "secrets", name, "secret.raw")
+}
+
+get_secret_user_file <- function(vault, name, email) {
+  file.path(vault, "secrets", name, paste0(email, ".enc"))
+}
+
+get_secret_user_files <- function(vault, name) {
+  dir(
+    file.path(vault, "secrets", name),
+    pattern = "\\.enc$",
+    full.names = TRUE
+  )
+}
+
+list_user_secrets <- function(vault, email) {
+  secrets <- normalizePath(dir(file.path(vault, "secrets")))
+  secrets <- Filter(is_dir, secrets)
+  file.path(vault, "secrets", secrets, paste0(email, ".enc"))
+}

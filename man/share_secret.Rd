@@ -6,14 +6,15 @@
 \alias{noone}
 \title{Share a secret among some users}
 \usage{
-share_secret(key, users = everyone(), vault = NULL)
+share_secret(name, users = everyone(), vault = NULL)
 
 everyone()
 
 noone()
 }
 \arguments{
-\item{key}{Name of the secret.}
+\item{name}{Name of the secret, a string that can contain alphanumeric
+characters, underscores, dashes and dots.}
 
 \item{users}{Character vector of usernames or email addresses
 to share the secret with. The special values \code{\link[=everyone]{everyone()}} and

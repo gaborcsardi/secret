@@ -16,3 +16,15 @@ is_email_address <- function(x) {
 on_failure(is_email_address) <- function(call, env) {
   paste0(deparse(call$x), " is not an email address")
 }
+
+is_valid_name <- function(x) {
+  is_string(x) && nzchar(x) && grepl("^[-_\\.a-zA-Z0-9]+$", x)
+}
+
+on_failure(is_valid_name) <- function(call, env) {
+  paste0(
+    deparse(call$x),
+    " is not a valid key. Keys may contain alphanumeric characters, ",
+    " underscores, dashes and dots and the empty string is not a valid key."
+  )
+}

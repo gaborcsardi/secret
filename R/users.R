@@ -64,7 +64,7 @@ delete_user <- function(email, vault = NULL) {
   }
 
   ## Get all secrets they have access to
-  secrets <- list_user_secrets(vault, email, existing = TRUE)
+  secrets <- list_user_secrets(vault, email)
 
   ## Remove everything in one go. This is still not atomic, of course...
   file.remove(user_file, secrets)

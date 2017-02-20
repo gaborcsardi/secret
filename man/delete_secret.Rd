@@ -4,10 +4,10 @@
 \alias{delete_secret}
 \title{Remove a secret from the vault}
 \usage{
-delete_secret(key, vault = NULL)
+delete_secret(name, vault = NULL)
 }
 \arguments{
-\item{key}{Name of the secret to delete.}
+\item{name}{Name of the secret to delete.}
 
 \item{vault}{Vault location. TODO}
 }

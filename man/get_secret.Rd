@@ -4,10 +4,13 @@
 \alias{get_secret}
 \title{Retrieve a secret from the vault}
 \usage{
-get_secret(key, vault = NULL)
+get_secret(name, key = my_key(), vault = NULL)
 }
 \arguments{
-\item{key}{Name of the secret.}
+\item{name}{Name of the secret.}
+
+\item{key}{The private RSA key to use. It defaults to the current
+user's default key.}
 
 \item{vault}{Vault location. TODO}
 }
