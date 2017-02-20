@@ -9,7 +9,8 @@ delete_user(email, vault = NULL)
 \arguments{
 \item{email}{Email address of the user.}
 
-\item{vault}{Vault location. TODO}
+\item{vault}{Vault location. Currently, vaults must be in R packages,
+in the \code{inst/vault} directory.}
 }
 \description{
 It also removes access of the user to all secrets, so if the user

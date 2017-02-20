@@ -18,7 +18,8 @@ the secrets for the different users. It can be
 \item a \code{pubkey} object created via the \code{openssl} package.
 }}
 
-\item{vault}{Vault location. TODO}
+\item{vault}{Vault location. Currently, vaults must be in R packages,
+in the \code{inst/vault} directory.}
 }
 \description{
 By default the new user does not have access to any secrets.

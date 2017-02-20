@@ -7,7 +7,8 @@
 list_secrets(vault = NULL)
 }
 \arguments{
-\item{vault}{Vault location. TODO}
+\item{vault}{Vault location. Currently, vaults must be in R packages,
+in the \code{inst/vault} directory.}
 }
 \description{
 List all secrets

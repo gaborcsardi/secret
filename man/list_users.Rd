@@ -7,7 +7,8 @@
 list_users(vault = NULL)
 }
 \arguments{
-\item{vault}{Vault location. TODO}
+\item{vault}{Vault location. Currently, vaults must be in R packages,
+in the \code{inst/vault} directory.}
 }
 \description{
 List users

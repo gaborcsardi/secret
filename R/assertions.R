@@ -17,6 +17,14 @@ on_failure(is_email_address) <- function(call, env) {
   paste0(deparse(call$x), " is not an email address")
 }
 
+is_email_addresses <- function(x) {
+  is.character(x) && all(vapply(x, is_email_address, TRUE))
+}
+
+on_failure(is_email_addresses) <- function(call, env) {
+  paste0(deparse(call$x), " must be a vector of email addresses")
+}
+
 is_valid_name <- function(x) {
   is_string(x) && nzchar(x) && grepl("^[-_\\.a-zA-Z0-9]+$", x)
 }

@@ -74,6 +74,10 @@ get_user_file <- function(vault, email) {
   file.path(vault, "users", paste0(email, ".pem"))
 }
 
+get_user_key <- function(vault, email) {
+  read_pubkey(get_user_file(vault, email))
+}
+
 get_secret_file <- function(vault, name) {
   file.path(vault, "secrets", name, "secret.raw")
 }
@@ -90,8 +94,21 @@ get_secret_user_files <- function(vault, name) {
   )
 }
 
+get_secret_user_emails <- function(vault, name) {
+  sub(
+    "\\.enc$", "",
+    basename(get_secret_user_files(vault, name))
+  )
+}
+
 list_user_secrets <- function(vault, email) {
-  secrets <- normalizePath(dir(file.path(vault, "secrets")))
-  secrets <- Filter(is_dir, secrets)
+  secrets <- list_all_secrets(vault)
   file.path(vault, "secrets", secrets, paste0(email, ".enc"))
+}
+
+list_all_secrets <- function(vault) {
+  secrets <- normalizePath(
+    dir(file.path(vault, "secrets"), full.names = TRUE)
+  )
+  Filter(is_dir, secrets)
 }

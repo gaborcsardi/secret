@@ -12,7 +12,8 @@ add_github_user(github_id, email = NULL, vault = NULL)
 \item{email}{Email address. This can be usually queried from GitHub.
 If not, then specify it here.}
 
-\item{vault}{Vault location. TODO}
+\item{vault}{Vault location. Currently, vaults must be in R packages,
+in the \code{inst/vault} directory.}
 }
 \description{
 Add a user via their GitHub username

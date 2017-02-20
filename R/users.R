@@ -85,3 +85,17 @@ list_users <- function(vault = NULL) {
     dir(file.path(vault, "users"), pattern = "\\.pem$")
   )
 }
+
+## ----------------------------------------------------------------------
+## Internals
+
+users_exist <- function(vault, users) {
+  tryCatch(
+    { lapply(users, get_user_key, vault = vault) ; TRUE },
+    error = function(e) FALSE
+  )
+}
+
+on_failure(secret_exists) <- function(call, env) {
+  paste0("Secret ", deparse(call$name), " does not exist")
+}

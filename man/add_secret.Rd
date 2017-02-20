@@ -4,18 +4,20 @@
 \alias{add_secret}
 \title{Add a new secret to the vault}
 \usage{
-add_secret(name, value, email, vault = NULL)
+add_secret(name, value, users, vault = NULL)
 }
 \arguments{
 \item{name}{Name of the secret, a string that can contain alphanumeric
 characters, underscores, dashes and dots.}
 
 \item{value}{Value of the secret, an arbitrary R object that
-will be saved to a file using \code{\link[base:save]{base::save()}}.}
+will be serialized using \code{\link[base:serialize]{base::serialize()}}.}
 
-\item{email}{User that will have access to the secret.}
+\item{users}{Email addresses of users that will have access to the
+secret.}
 
-\item{vault}{Vault location. TODO}
+\item{vault}{Vault location. Currently, vaults must be in R packages,
+in the \code{inst/vault} directory.}
 }
 \description{
 By default, the newly added secret is not shared with other

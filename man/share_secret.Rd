@@ -2,29 +2,27 @@
 % Please edit documentation in R/secrets.R
 \name{share_secret}
 \alias{share_secret}
-\alias{everyone}
-\alias{noone}
 \title{Share a secret among some users}
 \usage{
-share_secret(name, users = everyone(), vault = NULL)
-
-everyone()
-
-noone()
+share_secret(name, users, key = my_key(), vault = NULL)
 }
 \arguments{
 \item{name}{Name of the secret, a string that can contain alphanumeric
 characters, underscores, dashes and dots.}
 
 \item{users}{Character vector of usernames or email addresses
-to share the secret with. The special values \code{\link[=everyone]{everyone()}} and
-\code{\link[=noone]{noone()}} make it easy to share a secret with all users, or no
-users at all.}
+to share the secret with.}
 
-\item{vault}{Vault location. TODO}
+\item{key}{Private key that has access to the secret. (I.e. its
+corresponding public key is among the vault users.)}
+
+\item{vault}{Vault location. Currently, vaults must be in R packages,
+in the \code{inst/vault} directory.}
 }
 \description{
-Use this function to restrict or extend the set of users that
-have access to a secret. The calling user must have access to
-the secret as well.
+Use this function to extend the set of users that have access to a
+secret. The calling user must have access to the secret as well.
+}
+\seealso{
+\code{\link[=unshare_secret]{unshare_secret()}}
 }

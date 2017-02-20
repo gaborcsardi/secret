@@ -4,13 +4,17 @@
 \alias{update_secret}
 \title{Update a secret in the vault.}
 \usage{
-update_secret(name, vault = NULL)
+update_secret(name, value, key = my_key(), vault = NULL)
 }
 \arguments{
 \item{name}{Name of the secret, a string that can contain alphanumeric
 characters, underscores, dashes and dots.}
 
-\item{vault}{Vault location. TODO}
+\item{value}{Value of the secret, an arbitrary R object that
+will be serialized using \code{\link[base:serialize]{base::serialize()}}.}
+
+\item{vault}{Vault location. Currently, vaults must be in R packages,
+in the \code{inst/vault} directory.}
 }
 \description{
 Update a secret in the vault.
