@@ -19,27 +19,51 @@ source("https://install-github.me/gaborcsardi/secret")
 
 ## Usage
 
+* Load the package:
+
     ```r
     library(secret)
     ```
 
 
-* Ensure you know the location of your public and private keys. In Linux this is usually the folder `~/.ssh`, so on Windows you may want to choose the same folder.
+* Set up your keys:
 
+    Ensure you know the location of your public and private keys. In Linux this is usually the folder `~/.ssh`, so on Windows you may want to choose the same folder.
+    
+    By default, the package looks for your private key at `~/.ssh/id_rsa`, and if this file doesn't exist, at `~/.ssh/id_rsa.pem`.  You can change this default by setting an environment variable `USER_KEY`:
+    
+    ```r
+    Sys.setenv(USER_KEY = "path/to/private/key")
+    ```
+    
+    Test that the package can read your key:
+    
+    ```r
+    local_key()
+    ## [1024-bit rsa private key]
+    ## md5: 77999999999999999999999999999996
+    ```
 
-* Create a `vault` directory.
+* Create a `vault` directory:
 
-    Right now, you can only use a vault inside a package
+    A vault consists of two folders for:
+  
+        - users
+        - secrets
+        
+    You can create a vault by using:
+    
+    ```r
+    create_vault("/path/to/vault")
+    ```
+    
+    Alternatively, you can  create a vault in an R package:
 
     ```r
     pkg_root <- "/path/to/project"
     create_package_vault(pkg_root)
     ```
 
-    A vault consists of two folders for:
-  
-        - users
-        - secrets
 
 * Add users to the vault:
 
