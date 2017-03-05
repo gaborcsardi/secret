@@ -25,3 +25,9 @@ users. See the users argument if you want to change this.
 You can also use \code{\link[=share_secret]{share_secret()}} later, to specify the users that
 have access to the secret.
 }
+\seealso{
+Other secret functions: \code{\link{delete_secret}},
+  \code{\link{get_secret}}, \code{\link{list_secrets}},
+  \code{\link{share_secret}}, \code{\link{unshare_secret}},
+  \code{\link{update_secret}}
+}

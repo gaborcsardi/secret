@@ -13,3 +13,7 @@ in the \code{inst/vault} directory.}
 \description{
 List users
 }
+\seealso{
+Other user functions: \code{\link{add_github_user}},
+  \code{\link{add_user}}, \code{\link{delete_user}}
+}

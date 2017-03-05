@@ -13,3 +13,9 @@ in the \code{inst/vault} directory.}
 \description{
 List all secrets
 }
+\seealso{
+Other secret functions: \code{\link{add_secret}},
+  \code{\link{delete_secret}}, \code{\link{get_secret}},
+  \code{\link{share_secret}}, \code{\link{unshare_secret}},
+  \code{\link{update_secret}}
+}

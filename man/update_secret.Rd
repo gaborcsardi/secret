@@ -21,3 +21,9 @@ in the \code{inst/vault} directory.}
 \description{
 Update a secret in the vault.
 }
+\seealso{
+Other secret functions: \code{\link{add_secret}},
+  \code{\link{delete_secret}}, \code{\link{get_secret}},
+  \code{\link{list_secrets}}, \code{\link{share_secret}},
+  \code{\link{unshare_secret}}
+}

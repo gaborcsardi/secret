@@ -20,6 +20,7 @@
 #' @return The directory of the vault, invisibly.
 #'
 #' @importFrom rprojroot find_package_root_file
+#' 
 #' @export
 
 create_package_vault <- function(path = ".") {
@@ -36,7 +37,7 @@ create_package_vault <- function(path = ".") {
 ## Internals
 
 package_vault_directory <- function(path) {
-  root <- find_package_root_file(path)
+  root <- find_package_root_file(path = path)
   normalizePath(file.path(root, "inst", "vault"), mustWork = FALSE)
 }
 

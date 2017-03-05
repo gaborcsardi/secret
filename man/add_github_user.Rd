@@ -18,3 +18,7 @@ in the \code{inst/vault} directory.}
 \description{
 Add a user via their GitHub username
 }
+\seealso{
+Other user functions: \code{\link{add_user}},
+  \code{\link{delete_user}}, \code{\link{list_users}}
+}

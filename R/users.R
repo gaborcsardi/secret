@@ -13,6 +13,7 @@
 #'   * a `pubkey` object created via the `openssl` package.
 #' @inheritParams add_secret
 #'
+#' @family user functions
 #' @export
 #' @importFrom openssl read_pubkey write_pem
 
@@ -37,6 +38,7 @@ add_user <- function(email, public_key, vault = NULL) {
 #'   If not, then specify it here.
 #' @inheritParams add_secret
 #'
+#' @family user functions
 #' @export
 
 add_github_user <- function(github_id, email = NULL, vault = NULL) {
@@ -51,6 +53,7 @@ add_github_user <- function(github_id, email = NULL, vault = NULL) {
 #' @param email Email address of the user.
 #' @inheritParams add_secret
 #'
+#' @family user functions
 #' @export
 
 delete_user <- function(email, vault = NULL) {
@@ -76,6 +79,7 @@ delete_user <- function(email, vault = NULL) {
 #'
 #' @inheritParams add_secret
 #'
+#' @family user functions
 #' @export
 
 list_users <- function(vault = NULL) {
