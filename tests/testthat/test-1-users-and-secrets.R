@@ -29,7 +29,7 @@ secret_to_keep <- list(a = 1, b = letters)
 
 #  ------------------------------------------------------------------------
 
-context("Create a vault")
+context("vault")
 
 test_that("Can create a vault in a package", {
   proj_root <- rprojroot::find_package_root_file(path = pkg_root)
@@ -60,6 +60,8 @@ test_that("Can create a vault in a package", {
 
 # add and delete users ----------------------------------------------------
 
+context("users")
+
 test_that("can add and delete users", {
   expect_equal(
     basename(
@@ -89,6 +91,9 @@ test_that("can add and delete users", {
 
 
 # add and delete secrets --------------------------------------------------
+
+context("secrets")
+
 test_that("can add secrets", {
   
   add_user(user_1, user_1_public_key, vault = pkg_root)
@@ -170,12 +175,18 @@ test_that("add second secret shared by multiple users", {
     delete_user(user_1, vault = pkg_root)
   )
   
-  # This test should throw an error. Right now it doesn't - this is a bug
-  # Solving this requires re-encrypting secrets after deleting a user
+  # User 1 should not be able to access the secret
   expect_error(
     get_secret("secret_two", key = user_1_private_key, vault = pkg_root),
     "Access denied to secret"
   )
+
+  # user 2 should still see the secret
+  expect_equal(
+    get_secret("secret_two", key = user_2_private_key, vault = pkg_root),
+    iris
+  )
+  
   
   expect_null(
     delete_secret("secret_two", vault = pkg_root)

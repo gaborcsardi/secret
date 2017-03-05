@@ -27,6 +27,6 @@ will not have access to future values of the secret, though.
 
 Other secret functions: \code{\link{add_secret}},
   \code{\link{delete_secret}}, \code{\link{get_secret}},
-  \code{\link{list_secrets}}, \code{\link{share_secret}},
-  \code{\link{update_secret}}
+  \code{\link{list_secrets}}, \code{\link{local_key}},
+  \code{\link{share_secret}}, \code{\link{update_secret}}
 }

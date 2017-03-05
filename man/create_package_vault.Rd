@@ -2,9 +2,12 @@
 % Please edit documentation in R/vault.R
 \name{create_package_vault}
 \alias{create_package_vault}
+\alias{create_vault}
 \title{Create a vault in an R package}
 \usage{
 create_package_vault(path = ".")
+
+create_vault(path)
 }
 \arguments{
 \item{path}{Path to the R package. A file or directory within the

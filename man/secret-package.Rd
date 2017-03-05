@@ -7,7 +7,7 @@
 \title{Share Sensitive Information in R Packages}
 \description{
 Allow sharing sensitive information, for example passwords, API keys,
-etc., in R packages, using public key cryptography.
+or other information in R packages, using public key cryptography.
 }
 \details{
 A vault is a directory, typically inside an R package, that
@@ -18,13 +18,18 @@ The package implements the following operations:
 \itemize{
 \item Vault:
 \itemize{
+\item Creating a vault folder: \code{\link[=create_vault]{create_vault()}}
 \item Creating a package vault: \code{\link[=create_package_vault]{create_package_vault()}}
 }
 \item User management:
 \itemize{
 \item Adding a user: \code{\link[=add_user]{add_user()}}, \code{\link[=add_github_user]{add_github_user()}}.
 \item Deleting a user: \code{\link[=delete_user]{delete_user()}}.
-\item List users: \code{\link[=list_users]{list_users()}}.
+\item Listing users: \code{\link[=list_users]{list_users()}}.
+}
+\item Keys:
+\itemize{
+\item Reading local private key: \code{\link[=local_key]{local_key()}}
 }
 \item Secrets:
 \itemize{
@@ -35,7 +40,7 @@ The package implements the following operations:
 \item List secrets: \code{\link[=list_secrets]{list_secrets()}}.
 \item Sharing a secret: \code{\link[=share_secret]{share_secret()}}. Query or set the set of
 users that have access to a secret.
-\item Unshare a secret: \code{\link[=unshare_secret]{unshare_secret()}}
+\item Unsharing a secret: \code{\link[=unshare_secret]{unshare_secret()}}
 }
 }
 }

@@ -1,8 +1,10 @@
 Package: secret
 Title: Share Sensitive Information in R Packages
 Version: 0.0.0.9000
-Author: Gábor Csárdi
-Maintainer: Gábor Csárdi <csardi.gabor@gmail.com>
+Authors@R: c(person("Gábor", "Csárdi", role=c("aut", "cre"), 
+             email="csardi.gabor@gmail.com"),
+    person("Andrie", "de Vries", role=c("aut"), 
+            email="apdevries@gmail.com"))
 Description: Allow sharing sensitive information, for example passwords,
     'API' keys, etc., in R packages, using public key cryptography.
 License: MIT + file LICENSE
