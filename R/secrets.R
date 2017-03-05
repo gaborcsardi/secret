@@ -1,4 +1,3 @@
-
 #' Add a new secret to the vault
 #'
 #' By default, the newly added secret is not shared with other
@@ -45,9 +44,9 @@ add_secret <- function(name, value, users, vault = NULL) {
 #'
 #' @family secret functions
 #' @export
-#' @importFrom openssl my_key rsa_decrypt aes_cbc_decrypt
+#' @importFrom openssl rsa_decrypt aes_cbc_decrypt
 
-get_secret <- function(name, key = my_key(), vault = NULL) {
+get_secret <- function(name, key = local_key(), vault = NULL) {
   assert_that(is_valid_name(name))
   vault <- find_vault(vault)
 
@@ -73,7 +72,7 @@ get_secret <- function(name, key = my_key(), vault = NULL) {
 #' @family secret functions
 #' @export
 
-update_secret <- function(name, value, key = my_key(), vault = NULL) {
+update_secret <- function(name, value, key = local_key(), vault = NULL) {
   assert_that(is_valid_name(name))
   vault <- find_vault(vault)
 
@@ -146,7 +145,7 @@ list_secrets <- function(vault = NULL) {
 #' @family secret functions
 #' @export
 
-share_secret <- function(name, users, key = my_key(), vault = NULL) {
+share_secret <- function(name, users, key = local_key(), vault = NULL) {
   assert_that(is_valid_name(name))
   assert_that(is_email_addresses(users))
   vault <- find_vault(vault)
