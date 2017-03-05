@@ -4,7 +4,7 @@
 \alias{share_secret}
 \title{Share a secret among some users}
 \usage{
-share_secret(name, users, key = my_key(), vault = NULL)
+share_secret(name, users, key = local_key(), vault = NULL)
 }
 \arguments{
 \item{name}{Name of the secret, a string that can contain alphanumeric
@@ -28,6 +28,6 @@ secret. The calling user must have access to the secret as well.
 
 Other secret functions: \code{\link{add_secret}},
   \code{\link{delete_secret}}, \code{\link{get_secret}},
-  \code{\link{list_secrets}}, \code{\link{unshare_secret}},
-  \code{\link{update_secret}}
+  \code{\link{list_secrets}}, \code{\link{local_key}},
+  \code{\link{unshare_secret}}, \code{\link{update_secret}}
 }

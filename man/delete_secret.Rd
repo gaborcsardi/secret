@@ -18,6 +18,6 @@ Remove a secret from the vault
 \seealso{
 Other secret functions: \code{\link{add_secret}},
   \code{\link{get_secret}}, \code{\link{list_secrets}},
-  \code{\link{share_secret}}, \code{\link{unshare_secret}},
-  \code{\link{update_secret}}
+  \code{\link{local_key}}, \code{\link{share_secret}},
+  \code{\link{unshare_secret}}, \code{\link{update_secret}}
 }

@@ -4,7 +4,7 @@
 \alias{get_secret}
 \title{Retrieve a secret from the vault}
 \usage{
-get_secret(name, key = my_key(), vault = NULL)
+get_secret(name, key = local_key(), vault = NULL)
 }
 \arguments{
 \item{name}{Name of the secret.}
@@ -21,6 +21,6 @@ Retrieve a secret from the vault
 \seealso{
 Other secret functions: \code{\link{add_secret}},
   \code{\link{delete_secret}}, \code{\link{list_secrets}},
-  \code{\link{share_secret}}, \code{\link{unshare_secret}},
-  \code{\link{update_secret}}
+  \code{\link{local_key}}, \code{\link{share_secret}},
+  \code{\link{unshare_secret}}, \code{\link{update_secret}}
 }
