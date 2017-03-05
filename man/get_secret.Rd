@@ -18,3 +18,9 @@ in the \code{inst/vault} directory.}
 \description{
 Retrieve a secret from the vault
 }
+\seealso{
+Other secret functions: \code{\link{add_secret}},
+  \code{\link{delete_secret}}, \code{\link{list_secrets}},
+  \code{\link{share_secret}}, \code{\link{unshare_secret}},
+  \code{\link{update_secret}}
+}

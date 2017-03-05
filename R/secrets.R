@@ -15,6 +15,7 @@
 #' @param vault Vault location. Currently, vaults must be in R packages,
 #'   in the `inst/vault` directory.
 #'
+#' @family secret functions
 #' @export
 #' @importFrom openssl aes_keygen aes_cbc_encrypt read_pubkey rsa_encrypt
 
@@ -42,6 +43,7 @@ add_secret <- function(name, value, users, vault = NULL) {
 #'   user's default key.
 #' @inheritParams add_secret
 #'
+#' @family secret functions
 #' @export
 #' @importFrom openssl my_key rsa_decrypt aes_cbc_decrypt
 
@@ -68,6 +70,7 @@ get_secret <- function(name, key = my_key(), vault = NULL) {
 #' @inheritParams get_secret
 #' @inheritParams add_secret
 #'
+#' @family secret functions
 #' @export
 
 update_secret <- function(name, value, key = my_key(), vault = NULL) {
@@ -97,6 +100,7 @@ update_secret <- function(name, value, key = my_key(), vault = NULL) {
 #' @param name Name of the secret to delete.
 #' @inheritParams add_secret
 #'
+#' @family secret functions
 #' @export
 
 delete_secret <- function(name, vault = NULL) {
@@ -118,6 +122,7 @@ delete_secret <- function(name, vault = NULL) {
 #'
 #' @inheritParams add_secret
 #'
+#' @family secret functions
 #' @export
 
 list_secrets <- function(vault = NULL) {
@@ -137,6 +142,8 @@ list_secrets <- function(vault = NULL) {
 #' @inheritParams add_secret
 #'
 #' @seealso [unshare_secret()]
+#' 
+#' @family secret functions
 #' @export
 
 share_secret <- function(name, users, key = my_key(), vault = NULL) {
@@ -165,6 +172,8 @@ share_secret <- function(name, users, key = my_key(), vault = NULL) {
 #' @inheritParams add_secret
 #'
 #' @seealso [share_secret()]
+#' 
+#' @family secret functions
 #' @export
 
 unshare_secret <- function(name, users, vault = NULL) {

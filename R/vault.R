@@ -20,6 +20,7 @@
 #' @return The directory of the vault, invisibly.
 #'
 #' @importFrom rprojroot find_package_root_file
+#' 
 #' @export
 
 create_package_vault <- function(path = ".") {

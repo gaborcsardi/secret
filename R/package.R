@@ -9,17 +9,25 @@
 #' users. Users are identified using their public keys.
 #'
 #' The package implements the following operations:
-#' * Adding a user: [add_user()], [add_github_user()].
-#' * Deleting a user: [delete_user()].
-#' * List users: [list_users()].
-#' * Adding a secret: [add_secret()].
-#' * Retrieving a secret: [get_secret()].
-#' * Updating a secret: [update_secret()].
-#' * Deleting a secret: [delete_secret()].
-#' * List secrets: [list_secrets()].
-#' * Sharing a secret: [share_secret()]. Query or set the set of
+#' 
+#' * Vault:
+#'   - Creating a package vault: [create_package_vault()]
+#' * User management:
+#'   - Adding a user: [add_user()], [add_github_user()].
+#'   - Deleting a user: [delete_user()].
+#'   - List users: [list_users()].
+#' * Secrets:
+#'   - Adding a secret: [add_secret()].
+#'   - Retrieving a secret: [get_secret()].
+#'   - Updating a secret: [update_secret()].
+#'   - Deleting a secret: [delete_secret()].
+#'   - List secrets: [list_secrets()].
+#'   - Sharing a secret: [share_secret()]. Query or set the set of
 #'   users that have access to a secret.
+#'   - Unshare a secret: [unshare_secret()]
 #'
 #' @docType package
-#' @name secret
+#' @keywords package
+#' @name secret-package
+#' @aliases secret
 NULL
