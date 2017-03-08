@@ -27,5 +27,6 @@ See \code{\link[=share_secret]{share_secret()}} to give them access.
 }
 \seealso{
 Other user functions: \code{\link{add_github_user}},
-  \code{\link{delete_user}}, \code{\link{list_users}}
+  \code{\link{add_travis_user}}, \code{\link{delete_user}},
+  \code{\link{list_users}}
 }

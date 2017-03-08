@@ -19,6 +19,7 @@ in the \code{inst/vault} directory.}
 Add a user via their GitHub username
 }
 \seealso{
-Other user functions: \code{\link{add_user}},
-  \code{\link{delete_user}}, \code{\link{list_users}}
+Other user functions: \code{\link{add_travis_user}},
+  \code{\link{add_user}}, \code{\link{delete_user}},
+  \code{\link{list_users}}
 }
