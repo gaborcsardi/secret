@@ -17,7 +17,8 @@ Imports:
     assertthat,
     openssl,
     rprojroot,
-    httr
+    curl,
+    jsonlite
 Suggests: 
     testthat
 Encoding: UTF-8

@@ -4,13 +4,14 @@
 \alias{add_travis_user}
 \title{Add a user via their Travis repo}
 \usage{
-add_travis_user(travis_repo, email = travis_id, vault = NULL)
+add_travis_user(travis_repo, email, vault = NULL)
 }
 \arguments{
 \item{travis_repo}{Name of Travis repository, usually in a format
-<<username>>/<<repo>>}
+\code{<<username>>/<<repo>>}}
 
-\item{email}{Email address.}
+\item{email}{Email address. If not supplied, constructs an email
+address by using the travis username and repo: \code{travis-username-repo}}
 
 \item{vault}{Vault location. Currently, vaults must be in R packages,
 in the \code{inst/vault} directory.}
