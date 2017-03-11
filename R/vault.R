@@ -60,12 +60,9 @@ package_vault_directory <- function(path, create = FALSE) {
   if(create){
     return(normalizePath(file.path(root, "inst", "vault"), mustWork = FALSE))
   }
-  v <- normalizePath(file.path(root, "vault"), mustWork = FALSE)
-  if(dir.exists(v)) {
-    v
-  } else {
-    normalizePath(file.path(root, "inst", "vault"), mustWork = FALSE)
-  }
+  v <- file.path(root, "vault")
+  if(dir.exists(v)) v else file.path(root, "inst", "vault")
+  normalizePath(v, mustWork = FALSE)
 }
 
 is_vault <- function(vault) {
