@@ -29,18 +29,35 @@ add_user <- function(email, public_key, vault = NULL) {
   write_pem(key, path = user_file)
 }
 
+
+get_github_key <- function(github_user, i = 1) {
+  url <- paste0("https://api.github.com/users/", github_user, "/keys")
+  r <- curl(url)
+  k <- fromJSON(r)
+  key <- k$key
+  key[i]
+}
+
 #' Add a user via their GitHub username
 #'
-#' @param github_id User id on GitHub.
-#' @param email Email address. This can be usually queried from GitHub.
-#'   If not, then specify it here.
+#' @param github_user User name on GitHub.
+#' @param email Email address. If not supplied, constructs an email address
+#' with the GitHub user name: `github-username`
+#' @param i Integer, indicating which GitHub key to use (if more than one
+#' GitHub key exists).
 #' @inheritParams add_secret
 #'
 #' @family user functions
 #' @export
 
-add_github_user <- function(github_id, email = NULL, vault = NULL) {
-  ## TODO
+add_github_user <- function(github_user, email = NULL, vault = NULL, 
+                            i = 1) {
+  assert_that(is.count(i))
+  if(missing(email) || is.null(email)){
+    email <- paste0("github-", github_user)
+  }
+  key <- get_github_key(github_user)
+  add_user(email = email, public_key = key, vault = vault)
 }
 
 
