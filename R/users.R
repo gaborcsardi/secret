@@ -49,6 +49,8 @@ get_github_key <- function(github_user, i = 1) {
 #'
 #' @family user functions
 #' @export
+#' 
+#' @importFrom assertthat is.count
 
 add_github_user <- function(github_user, email = NULL, vault = NULL, 
                             i = 1) {
