@@ -1,6 +1,20 @@
-# secret: Share Sensitive Information in R Packages
+---
+title: "secret: Share Sensitive Information in R Packages"
+output: 
+  html_document: 
+    keep_md: yes
+    self_contained: yes
+    smart: no
+---
 
-
+```{r, setup, echo = FALSE, message = FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  tidy = FALSE,
+  error = FALSE,
+  fig.width = 8,
+  fig.height = 8)
+```
 
 
 [![Linux Build Status](https://travis-ci.org/gaborcsardi/secret.svg?branch=master)](https://travis-ci.org/gaborcsardi/secret)
@@ -15,15 +29,13 @@ etc., in R packages, using public key cryptography.
 
 Install the package using the `install-github.me` service:
 
-
-```r
+```{r, eval = FALSE}
 source("https://install-github.me/gaborcsardi/secret")
 ```
     
 Or using `devtools`:
 
-
-```r
+```{r, eval = FALSE}
 devtools::install_github("gaborcsardi/secret")
 ```
 
@@ -32,8 +44,7 @@ devtools::install_github("gaborcsardi/secret")
 
 ### Load the package:
 
-
-```r
+```{r}
 library(secret)
 ```
 
@@ -49,21 +60,14 @@ By default, the package looks for your private key at
 
 You can change this default by setting an environment variable `USER_KEY`:
 
-
-```r
+```{r eval = FALSE}
 Sys.setenv(USER_KEY = "path/to/private/key")
 ```
 
 Test that the package can read your key:
 
-
-```r
+```{r}
 local_key()
-```
-
-```
-#> [1024-bit rsa private key]
-#> md5: 7794640c6bebe1e52a28caf792ea2896
 ```
 
 ### Create a vault:
@@ -71,8 +75,7 @@ local_key()
     
 You can create a vault by using `create_vault()`
 
-
-```r
+```{r}
 vault <- file.path(tempdir(), ".vault")
 dir.create(vault)
 create_vault(vault)
@@ -83,19 +86,13 @@ A vault consists of two folders for:
 * `users`: contains user and their public keys
 * `secrets`: contains the encrypted secrets
 
-
-```r
+```{r}
 dir(vault)
-```
-
-```
-#> [1] "README"  "secrets" "users"
 ```
 
 Alternatively, you can create a vault in an R package:
 
-
-```r
+```{r, eval = FALSE}
 pkg_root <- "/path/to/package"
 create_package_vault(pkg_root)
 ```
@@ -105,23 +102,16 @@ create_package_vault(pkg_root)
 
 The `secret` package contains some public and private keys you can use for demonstration purposes
 
-
-```r
+```{r}
 key_dir <- file.path(system.file(package = "secret"), "user_keys")
 alice_public_key <- file.path(key_dir, "alice.pub")
 alice_private_key <- file.path(key_dir, "alice.pem")
 openssl::read_pubkey(alice_public_key)
 ```
 
-```
-#> [2048-bit rsa public key]
-#> md5: 1d858d316afb8b7d0efd69ec85dc7174
-```
-
 Add the public key of Alice to the vault:
 
-
-```r
+```{r}
 add_user("alice", alice_public_key, vault = vault)
 ```
     
@@ -130,8 +120,7 @@ add_user("alice", alice_public_key, vault = vault)
 
 A secret can be any R object - this object will be serialised and encrypted using your local private key.
 
-
-```r
+```{r}
 secret_to_keep <- c(password = "my_password")
 add_secret("secret_one", secret_to_keep, users = "alice", vault = vault)
 ```
@@ -140,14 +129,8 @@ add_secret("secret_one", secret_to_keep, users = "alice", vault = vault)
 
 You can decrypt a secret if you have the private key that corresponds to the public key that was used to encrypt the secret,
 
-
-```r
+```{r}
 get_secret("secret_one", key = alice_private_key, vault = vault)
-```
-
-```
-#>      password 
-#> "my_password"
 ```
 
 
@@ -157,13 +140,8 @@ get_secret("secret_one", key = alice_private_key, vault = vault)
   
   * Note that the folder `~/.ssh` in Windows usually expands to `C:\\Users\\YOURNAME\\Documents\\.ssh`. You can find the full path by using:
 
-    
-    ```r
+    ```{r}
     normalizePath("~/.ssh", mustWork = FALSE)
-    ```
-    
-    ```
-    #> [1] "C:\\Users\\adevries\\Documents\\.ssh"
     ```
 
 
