@@ -1,99 +1,25 @@
 if(interactive()) library(testthat)
 
-# Function to test for identical file path, after normalizing paths
-expect_same_filepath <- function(object, expected){
-  neat_path <- function(x){ normalizePath(x, winslash = "/", mustWork = FALSE) }
-  expect_equal(neat_path(object), neat_path(expected))
-}
+pkg_root <- make_pkg_root()
+create_package_vault(pkg_root)
 
-# Create a "package" in tempdir to contain a new vault
-{
-  pkg_root <- normalizePath(file.path(tempdir(), "secret_test"), winslash = "/", mustWork = FALSE)
-  if(dir.exists(pkg_root)) unlink(pkg_root, recursive = TRUE)
-  dir.create(pkg_root, showWarnings = FALSE)
-  writeLines("Package: secret_test", file.path(pkg_root, "DESCRIPTION"))
-}
-
-# Define users and locations of keys
 {
   alice <- "alice"
   bob   <- "bob"
   user_keys_dir <- file.path(system.file(package = "secret"), "user_keys")
-  alice_public_key  <- file.path(user_keys_dir, "alice.pub")
-  alice_private_key <- file.path(user_keys_dir, "alice.pem")
-  bob_public_key    <- file.path(user_keys_dir, "bob.pub")
-  bob_private_key   <- file.path(user_keys_dir, "bob.pem")
-  carl_private_key   <- file.path(user_keys_dir, "charile.pem")
+  key <- function(x)file.path(user_keys_dir, x)
+  alice_public_key  <- key("alice.pub")
+  alice_private_key <- key("alice.pem")
+  bob_public_key    <- key("bob.pub")
+  bob_private_key   <- key("bob.pem")
+  carl_private_key   <- key("carl.pem")
 }
+
+
+context("secrets")
 
 secret_to_keep <- list(a = 1, b = letters)
 
-#  ------------------------------------------------------------------------
-
-context("vault")
-
-test_that("Can create a vault in a package", {
-  proj_root <- rprojroot::find_package_root_file(path = pkg_root)
-  expect_is(proj_root, "character")
-  expect_equal(basename(proj_root), "secret_test")
-  
-  res <- create_package_vault(pkg_root)
-  expect_equal(basename(res), "vault")
-  
-  expect_equal(
-    dir(res), 
-    c("README", "secrets", "users")
-  )
-  
-  expect_same_filepath(
-    find_vault(pkg_root), 
-    file.path(tempdir(), "secret_test", "inst", "vault")
-  )
-  
-  
-  expect_equal(
-    list_users(pkg_root),
-    character(0)
-  )
-  
-})
-
-
-# add and delete users ----------------------------------------------------
-
-context("users")
-
-test_that("can add and delete users", {
-  expect_equal(
-    basename(
-      add_user(alice, alice_public_key, vault = pkg_root)
-    ), 
-    "alice.pem"
-  ) 
-  
-  expect_equal(
-    list_users(pkg_root), 
-    "alice"
-  )
-  
-  expect_error(
-    delete_user(bob, vault = pkg_root),
-    "does not exist"
-  )
-  
-  expect_null(
-    delete_user(alice, vault = pkg_root)
-  )
-  expect_equal(
-    list_users(pkg_root), 
-    character(0)
-  )
-})
-
-
-# add and delete secrets --------------------------------------------------
-
-context("secrets")
 
 test_that("can add secrets", {
   
@@ -189,7 +115,7 @@ test_that("add second secret shared by multiple users", {
     get_secret("secret_two", key = alice_private_key, vault = pkg_root),
     "Access denied to secret"
   )
-
+  
   # user 2 should still see the secret
   expect_equal(
     get_secret("secret_two", key = bob_private_key, vault = pkg_root),
@@ -212,24 +138,68 @@ test_that("add second secret shared by multiple users", {
 })
 
 
-# travis and github ---------------------------------------------------
+# share-secret --------------------------------------------------------
 
-context("travis")
-
-test_that("can add travis user",{
+test_that("use share_secret() to share between alice and bob", {
+  add_user(alice, alice_public_key, vault = pkg_root)
   expect_null(
-    cat(add_travis_user("gaborcsardi/secret", vault = pkg_root))
+    add_secret("secret_3", mtcars, users = c(alice), vault = pkg_root)
   )
-  expect_true(
-    file.exists(file.path(pkg_root, "inst", "vault", "users", "travis-gaborcsardi-secret.pem"))
+  expect_equal(
+    list_secrets(pkg_root),
+    c("secret_3", "secret_one")
+  )
+  
+  expect_null(
+    share_secret("secret_3", users = c(alice, bob), 
+                 key = alice_private_key, vault = pkg_root)
+  )
+  
+  expect_equal(
+    # alice can decrypt with private key
+    get_secret("secret_3", key = alice_private_key, vault = pkg_root),
+    mtcars
+  )
+  
+  expect_equal(
+    # bob can decrypt with private key
+    get_secret("secret_3", key = bob_private_key, vault = pkg_root),
+    mtcars
+  )
+
+  expect_equal(
+    list_secrets(pkg_root),
+    c("secret_3", "secret_one")
+  )
+  expect_equal(
+    list_users(pkg_root),
+    c("alice", "bob")
   )
 })
 
-test_that("can add github user",{
+
+test_that("unshare a secret", {
   expect_null(
-    cat(add_github_user("gaborcsardi", vault = pkg_root))
+  unshare_secret("secret_3", users = bob, vault = pkg_root)
   )
-  expect_true(
-    file.exists(file.path(pkg_root, "inst", "vault", "users", "github-gaborcsardi.pem"))
+  expect_error(
+    # bob can no longer decrypt with private key
+    get_secret("secret_3", key = bob_private_key, vault = pkg_root)
   )
+})
+
+test_that("udpate a secret", {
+  expect_equal(
+    get_secret("secret_3", key = alice_private_key, vault = pkg_root),
+    mtcars
+  )
+  expect_null(
+  update_secret("secret_3", value = "foo", key = alice_private_key, 
+                vault = pkg_root)
+  )
+  expect_equal(
+    get_secret("secret_3", key = alice_private_key, vault = pkg_root),
+    "foo"
+  )
+  
 })
