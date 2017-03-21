@@ -33,4 +33,5 @@
 #' @keywords package
 #' @name secret-package
 #' @aliases secret
+#' @author Gábor Csárdi and Andrie de Vries
 NULL
