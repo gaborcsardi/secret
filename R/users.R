@@ -2,7 +2,7 @@
 #' Add a new user to the vault
 #'
 #' By default the new user does not have access to any secrets.
-#' See [share_secret()] to give them access.
+#' See [add_secret()] or [share_secret()] to give them access.
 #'
 #' @param email Email address of the user. This is used to identify
 #'   users.
@@ -41,11 +41,9 @@ get_github_key <- function(github_user, i = 1) {
 #' Add a user via their GitHub username
 #'
 #' @param github_user User name on GitHub.
-#' @param email Email address. If not supplied, constructs an email address
-#' with the GitHub user name: `github-username`
 #' @param i Integer, indicating which GitHub key to use (if more than one
 #' GitHub key exists).
-#' @inheritParams add_secret
+#' @inheritParams add_user
 #'
 #' @family user functions
 #' @export
@@ -79,9 +77,7 @@ get_travis_key <- function(travis_repo){
 #' 
 #' @param travis_repo Name of Travis repository, usually in a format 
 #' `<<username>>/<<repo>>`
-#' @param email Email address. If not supplied, constructs an email 
-#' address by using the travis username and repo: `travis-username-repo`
-#' @inheritParams add_secret
+#' @inheritParams add_user
 #'
 #' @family user functions
 #' @export
