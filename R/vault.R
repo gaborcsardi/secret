@@ -1,18 +1,32 @@
 
-#' Create a vault in an R package
+#' Create a vault, as a folder or in an R package
 #'
-#' A vault is stored in the `inst/vault` directory of a package, and
-#' has two parts, in two corresponding directories: `users` and `secrets`.
+#' A vault is a folder that contains information about users and the secrets
+#' they share. You can create a vault as either a standalone folder, or
+#' as part of a package.
+#' 
+#' @details 
+#' 
+#' A vault is a folder with a specific structure, containing two 
+#' directories: `users` and `secrets`.
 #'
 #' In `users`, each file contains a public key in PEM format. The name of
 #' the file is the identifier of the key, an arbitrary name. We suggest
-#' that you use email addresses to identify public keys.
+#' that you use email addresses to identify public keys. See also [add_user()].
 #'
 #' In `secrets`, each secret is stored in its own directory.
 #' The directory of a secret contains
 #' 1. the secret, encrypted with its own AES key, and
 #' 2. the AES key, encrypted with the public keys of all users that
 #'    have access to the secret, each in its own file.
+#'
+#' To add a secret, see [add_secret()]
+#' 
+#' @section Creating a package folder:
+#' 
+#' When you create a vault in a package, this vault is stored in the 
+#' `inst/vault` directory of the package during development. At package 
+#' install time, this folder is copied to the `vault` folder.
 #'
 #' @param path Path to the R package. A file or directory within the
 #'   package is fine, too. If the vault directory already exists, a message
@@ -22,6 +36,7 @@
 #' @importFrom rprojroot find_package_root_file
 #' 
 #' @export
+#' @seealso [add_user()], [add_secret()]
 
 create_package_vault <- function(path = ".") {
   vault <- package_vault_directory(path, create = TRUE)
