@@ -7,7 +7,9 @@ test_that("can read local key", {
   z <- tryCatch(local_key(), error = function(e)e)
   if(inherits(z, "error")) skip("No local key available")
   
-  z <- local_key()
+  expect_silent(
+    z <- "local_key"()
+  )
   
   expect_is(z, "key")
 })
@@ -16,7 +18,7 @@ test_that("can read local key when setting env variable", {
   old_env <- Sys.getenv("USER_KEY")
   on.exit(Sys.setenv(USER_KEY = old_env))
   
-  pth <- system.file("inst/user_keys/alice.pem", package = "secret")
+  pth <- system.file("user_keys/alice.pem", package = "secret")
   Sys.setenv(USER_KEY = pth)
   expect_silent(
     z <- "local_key"()
