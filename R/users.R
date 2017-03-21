@@ -16,6 +16,7 @@
 #' @family user functions
 #' @export
 #' @importFrom openssl read_pubkey write_pem
+#' @example inst/examples/example-secret.R
 
 add_user <- function(email, public_key, vault = NULL) {
   assert_that(is_email_address(email))
@@ -38,9 +39,14 @@ get_github_key <- function(github_user, i = 1) {
   key[i]
 }
 
-#' Add a user via their GitHub username
+#' Add a user via their GitHub username.
+#' 
+#' On GitHub, a user can upload multiple keys. This function will download
+#' the first key by default, but you can change this
 #'
 #' @param github_user User name on GitHub.
+#' @param email Email address of the github user. If NULL, constructs an
+#' email as `github-<<github_user>>`
 #' @param i Integer, indicating which GitHub key to use (if more than one
 #' GitHub key exists).
 #' @inheritParams add_user
@@ -49,6 +55,8 @@ get_github_key <- function(github_user, i = 1) {
 #' @export
 #' 
 #' @importFrom assertthat is.count
+#' @example inst/examples/example-github.R
+#' @seealso [add_travis_user()]
 
 add_github_user <- function(github_user, email = NULL, vault = NULL, 
                             i = 1) {
@@ -73,7 +81,10 @@ get_travis_key <- function(travis_repo){
 }
 
 
-#' Add a user via their Travis repo
+#' Add a user via their Travis repo.
+#' 
+#' On Travis, every repo has a private/public key pair. This function adds a 
+#' user and downloads the public key from Travis.
 #' 
 #' @param travis_repo Name of Travis repository, usually in a format 
 #' `<<username>>/<<repo>>`
@@ -81,6 +92,7 @@ get_travis_key <- function(travis_repo){
 #'
 #' @family user functions
 #' @export
+#' @example inst/examples/example-travis.R
 
 add_travis_user <- function(travis_repo, email, vault = NULL) {
   if(missing(email) || is.null(email)){

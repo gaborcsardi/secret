@@ -16,6 +16,7 @@
 #' @family secret functions
 #' @export
 #' @importFrom openssl aes_keygen aes_cbc_encrypt read_pubkey rsa_encrypt
+#' @example inst/examples/example-secret.R
 
 add_secret <- function(name, value, users, vault = NULL) {
   assert_that(is_valid_name(name))
@@ -44,6 +45,7 @@ add_secret <- function(name, value, users, vault = NULL) {
 #' @family secret functions
 #' @export
 #' @importFrom openssl rsa_decrypt aes_cbc_decrypt
+#' @example inst/examples/example-secret.R
 
 get_secret <- function(name, key = local_key(), vault = NULL) {
   assert_that(is_valid_name(name))

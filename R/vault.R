@@ -50,6 +50,7 @@ create_package_vault <- function(path = ".") {
 
 #' @rdname create_package_vault
 #' @export
+#' @example inst/examples/example-secret.R
 create_vault <- function(path) {
   create_dir(path)
   create_dir(file.path(path, "users"))

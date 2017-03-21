@@ -2,7 +2,7 @@
 % Please edit documentation in R/users.R
 \name{add_travis_user}
 \alias{add_travis_user}
-\title{Add a user via their Travis repo}
+\title{Add a user via their Travis repo.}
 \usage{
 add_travis_user(travis_repo, email, vault = NULL)
 }
@@ -16,7 +16,16 @@ users.}
 \item{vault}{Vault location. To create a vault, use \code{\link[=create_vault]{create_vault()}} or \code{\link[=create_package_vault]{create_package_vault()}}}
 }
 \description{
-Add a user via their Travis repo
+On Travis, every repo has a private/public key pair. This function adds a
+user and downloads the public key from Travis.
+}
+\examples{
+vault <- file.path(tempdir(), ".vault")
+create_vault(vault)
+
+add_travis_user("gaborcsardi/secret", vault = vault)
+list_users(vault = vault)
+delete_user("travis-gaborcsardi-secret", vault = vault)
 }
 \seealso{
 Other user functions: \code{\link{add_github_user}},
