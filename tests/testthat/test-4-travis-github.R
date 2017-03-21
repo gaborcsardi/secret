@@ -7,6 +7,7 @@ create_package_vault(pkg_root)
 context("travis and github")
 
 test_that("can add travis user",{
+  skip_on_cran()
   expect_equal(
     basename(
       add_travis_user("gaborcsardi/secret", vault = pkg_root)
@@ -19,6 +20,7 @@ test_that("can add travis user",{
 })
 
 test_that("can add github user",{
+  skip_on_cran()
   expect_equal(
     basename(
       add_github_user("gaborcsardi", vault = pkg_root)
