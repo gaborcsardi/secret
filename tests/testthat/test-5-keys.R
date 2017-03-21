@@ -7,9 +7,8 @@ test_that("can read local key", {
   z <- tryCatch(local_key(), error = function(e)e)
   if(inherits(z, "error")) skip("No local key available")
   
-  expect_silent(
-    z <- local_key()
-  )
+  z <- local_key()
+  
   expect_is(z, "key")
 })
 
