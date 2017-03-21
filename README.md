@@ -32,14 +32,6 @@ devtools::install_github("gaborcsardi/secret")
 ## Usage
 
 
-### Load the package:
-
-
-```r
-library(secret)
-```
-
-
 ### Set up your keys:
 
 Ensure you know the location of your public and private keys. In Linux this is usually the folder `~/.ssh`, so on Windows you may want to choose the same folder.
@@ -61,13 +53,23 @@ Test that the package can read your key:
 
 
 ```r
+library(secret)
 local_key()
 ```
 
 ```
-#> [1024-bit rsa private key]
-#> md5: 7794640c6bebe1e52a28caf792ea2896
+# [1024-bit rsa private key]
+# md5: 7794640c6bebe1e52a28caf792ea2896
 ```
+
+
+### Load the package:
+
+
+```r
+library(secret)
+```
+
 
 ### Create a vault:
 
@@ -91,7 +93,7 @@ dir(vault)
 ```
 
 ```
-#> [1] "README"  "secrets" "users"
+# [1] "README"  "secrets" "users"
 ```
 
 Alternatively, you can create a vault in an R package:
@@ -118,8 +120,8 @@ openssl::read_pubkey(alice_public_key)
 ```
 
 ```
-#> [2048-bit rsa public key]
-#> md5: 1d858d316afb8b7d0efd69ec85dc7174
+# [2048-bit rsa public key]
+# md5: 1d858d316afb8b7d0efd69ec85dc7174
 ```
 
 Add the public key of Alice to the vault:
@@ -139,7 +141,8 @@ A secret can be any R object - this object will be serialised and then encrypted
 secret_to_keep <- c(password = "my_password")
 add_secret("secret_one", secret_to_keep, users = "alice", vault = vault)
 ```
-  
+
+
 ### Decrypt a secret by providing your private key:
 
 You can decrypt a secret if you have the private key that corresponds to the public key that was used to encrypt the secret,
@@ -150,14 +153,14 @@ get_secret("secret_one", key = alice_private_key, vault = vault)
 ```
 
 ```
-#>      password 
-#> "my_password"
+#      password 
+# "my_password"
 ```
 
 
 ### Note for Windows users
 
-  * If you use windows, you most likely created your keys using PuttyGen. Note that the key created by default from PuttyGen is not in OpenSSH format, so you have to convert your format first. To do this, use the  `/Conversions/Export OpenSSH` key PuttyGen menu.
+  * If you use windows, you most likely created your keys using PuttyGen. Note that the key created by default from PuttyGen is not in OpenSSH format, so you have to convert your format first. To do this, use the  `/Conversions/Export OpenSSH key` menu item in  PuttyGen.
   
   * Note that the folder `~/.ssh` in Windows usually expands to `C:\\Users\\YOURNAME\\Documents\\.ssh`. You can find the full path by using:
 
@@ -167,7 +170,7 @@ get_secret("secret_one", key = alice_private_key, vault = vault)
     ```
     
     ```
-    #> [1] "C:\\Users\\adevries\\Documents\\.ssh"
+    # [1] "C:\\Users\\adevries\\Documents\\.ssh"
     ```
 
 

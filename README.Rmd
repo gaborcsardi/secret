@@ -43,7 +43,7 @@ devtools::install_github("gaborcsardi/secret")
 
 ## Usage
 
-```{r, child="vignettes/child.Rmd"}
+```{r, child="inst/vignette_child/child.Rmd"}
 ```
 
 ## License
