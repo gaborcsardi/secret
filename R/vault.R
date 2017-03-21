@@ -24,7 +24,7 @@
 #' @export
 
 create_package_vault <- function(path = ".") {
-  vault <- package_vault_directory(path)
+  vault <- package_vault_directory(path, create = TRUE)
   if (file.exists(vault)) {
     message("Package vault already exists in ", sQuote(vault))
   } else {
@@ -55,9 +55,14 @@ create_vault <- function(path) {
 ## ----------------------------------------------------------------------
 ## Internals
 
-package_vault_directory <- function(path) {
+package_vault_directory <- function(path, create = FALSE) {
   root <- find_package_root_file(path = path)
-  normalizePath(file.path(root, "inst", "vault"), mustWork = FALSE)
+  if(create){
+    return(normalizePath(file.path(root, "inst", "vault"), mustWork = FALSE))
+  }
+  v <- file.path(root, "vault")
+  v <- if(dir.exists(v)) v else file.path(root, "inst", "vault")
+  normalizePath(v, mustWork = FALSE)
 }
 
 is_vault <- function(vault) {
@@ -67,7 +72,7 @@ is_vault <- function(vault) {
 }
 
 find_vault <- function(vault) {
-  # if vauolt is not null then
+  # if vault is not null then
   # 1. see if vault is a vault
   # 2. check for a package vault
   # 3. check if option is set, and if so, use the option -- NOT YET IMPLEMENTED
@@ -76,7 +81,7 @@ find_vault <- function(vault) {
     # && !is.null(getOption("secret.vault_dir"))){
     # getOption("secret.vault_dir")
   } else {
-  package_vault_directory(vault %||% ".")
+    package_vault_directory(vault %||% ".")
   }
 }
 

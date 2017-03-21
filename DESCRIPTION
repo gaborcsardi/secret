@@ -16,7 +16,9 @@ Roxygen: list(markdown = TRUE)
 Imports:
     assertthat,
     openssl,
-    rprojroot
+    rprojroot,
+    curl,
+    jsonlite
 Suggests: 
     testthat
 Encoding: UTF-8

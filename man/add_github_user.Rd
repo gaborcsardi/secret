@@ -4,21 +4,25 @@
 \alias{add_github_user}
 \title{Add a user via their GitHub username}
 \usage{
-add_github_user(github_id, email = NULL, vault = NULL)
+add_github_user(github_user, email = NULL, vault = NULL, i = 1)
 }
 \arguments{
-\item{github_id}{User id on GitHub.}
+\item{github_user}{User name on GitHub.}
 
-\item{email}{Email address. This can be usually queried from GitHub.
-If not, then specify it here.}
+\item{email}{Email address. If not supplied, constructs an email address
+with the GitHub user name: \code{github-username}}
 
 \item{vault}{Vault location. Currently, vaults must be in R packages,
 in the \code{inst/vault} directory.}
+
+\item{i}{Integer, indicating which GitHub key to use (if more than one
+GitHub key exists).}
 }
 \description{
 Add a user via their GitHub username
 }
 \seealso{
-Other user functions: \code{\link{add_user}},
-  \code{\link{delete_user}}, \code{\link{list_users}}
+Other user functions: \code{\link{add_travis_user}},
+  \code{\link{add_user}}, \code{\link{delete_user}},
+  \code{\link{list_users}}
 }

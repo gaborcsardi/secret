@@ -15,5 +15,6 @@ List users
 }
 \seealso{
 Other user functions: \code{\link{add_github_user}},
-  \code{\link{add_user}}, \code{\link{delete_user}}
+  \code{\link{add_travis_user}}, \code{\link{add_user}},
+  \code{\link{delete_user}}
 }
