@@ -9,11 +9,10 @@ add_github_user(github_user, email = NULL, vault = NULL, i = 1)
 \arguments{
 \item{github_user}{User name on GitHub.}
 
-\item{email}{Email address. If not supplied, constructs an email address
-with the GitHub user name: \code{github-username}}
+\item{email}{Email address of the user. This is used to identify
+users.}
 
-\item{vault}{Vault location. Currently, vaults must be in R packages,
-in the \code{inst/vault} directory.}
+\item{vault}{Vault location. To create a vault, use \code{\link[=create_vault]{create_vault()}} or \code{\link[=create_package_vault]{create_package_vault()}}}
 
 \item{i}{Integer, indicating which GitHub key to use (if more than one
 GitHub key exists).}

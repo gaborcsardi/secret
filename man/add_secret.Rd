@@ -14,10 +14,9 @@ characters, underscores, dashes and dots.}
 will be serialized using \code{\link[base:serialize]{base::serialize()}}.}
 
 \item{users}{Email addresses of users that will have access to the
-secret.}
+secret. (See \code{\link[=add_user]{add_user()}})}
 
-\item{vault}{Vault location. Currently, vaults must be in R packages,
-in the \code{inst/vault} directory.}
+\item{vault}{Vault location. To create a vault, use \code{\link[=create_vault]{create_vault()}} or \code{\link[=create_package_vault]{create_package_vault()}}}
 }
 \description{
 By default, the newly added secret is not shared with other

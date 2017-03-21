@@ -10,14 +10,13 @@ share_secret(name, users, key = local_key(), vault = NULL)
 \item{name}{Name of the secret, a string that can contain alphanumeric
 characters, underscores, dashes and dots.}
 
-\item{users}{Character vector of usernames or email addresses
-to share the secret with.}
+\item{users}{Email addresses of users that will have access to the
+secret. (See \code{\link[=add_user]{add_user()}})}
 
 \item{key}{Private key that has access to the secret. (I.e. its
 corresponding public key is among the vault users.)}
 
-\item{vault}{Vault location. Currently, vaults must be in R packages,
-in the \code{inst/vault} directory.}
+\item{vault}{Vault location. To create a vault, use \code{\link[=create_vault]{create_vault()}} or \code{\link[=create_package_vault]{create_package_vault()}}}
 }
 \description{
 Use this function to extend the set of users that have access to a

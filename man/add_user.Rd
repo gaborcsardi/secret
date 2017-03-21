@@ -18,12 +18,11 @@ the secrets for the different users. It can be
 \item a \code{pubkey} object created via the \code{openssl} package.
 }}
 
-\item{vault}{Vault location. Currently, vaults must be in R packages,
-in the \code{inst/vault} directory.}
+\item{vault}{Vault location. To create a vault, use \code{\link[=create_vault]{create_vault()}} or \code{\link[=create_package_vault]{create_package_vault()}}}
 }
 \description{
 By default the new user does not have access to any secrets.
-See \code{\link[=share_secret]{share_secret()}} to give them access.
+See \code{\link[=add_secret]{add_secret()}} or \code{\link[=share_secret]{share_secret()}} to give them access.
 }
 \seealso{
 Other user functions: \code{\link{add_github_user}},

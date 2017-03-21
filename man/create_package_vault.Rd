@@ -3,7 +3,7 @@
 \name{create_package_vault}
 \alias{create_package_vault}
 \alias{create_vault}
-\title{Create a vault in an R package}
+\title{Create a vault, as a folder or in an R package}
 \usage{
 create_package_vault(path = ".")
 
@@ -18,13 +18,17 @@ is given, and the function does nothing.}
 The directory of the vault, invisibly.
 }
 \description{
-A vault is stored in the \code{inst/vault} directory of a package, and
-has two parts, in two corresponding directories: \code{users} and \code{secrets}.
+A vault is a folder that contains information about users and the secrets
+they share. You can create a vault as either a standalone folder, or
+as part of a package.
 }
 \details{
+A vault is a folder with a specific structure, containing two
+directories: \code{users} and \code{secrets}.
+
 In \code{users}, each file contains a public key in PEM format. The name of
 the file is the identifier of the key, an arbitrary name. We suggest
-that you use email addresses to identify public keys.
+that you use email addresses to identify public keys. See also \code{\link[=add_user]{add_user()}}.
 
 In \code{secrets}, each secret is stored in its own directory.
 The directory of a secret contains
@@ -33,4 +37,17 @@ The directory of a secret contains
 \item the AES key, encrypted with the public keys of all users that
 have access to the secret, each in its own file.
 }
+
+To add a secret, see \code{\link[=add_secret]{add_secret()}}
+}
+\section{Creating a package folder}{
+
+
+When you create a vault in a package, this vault is stored in the
+\code{inst/vault} directory of the package during development. At package
+install time, this folder is copied to the \code{vault} folder.
+}
+
+\seealso{
+\code{\link[=add_user]{add_user()}}, \code{\link[=add_secret]{add_secret()}}
 }

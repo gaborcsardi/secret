@@ -12,8 +12,7 @@ get_secret(name, key = local_key(), vault = NULL)
 \item{key}{The private RSA key to use. It defaults to the current
 user's default key.}
 
-\item{vault}{Vault location. Currently, vaults must be in R packages,
-in the \code{inst/vault} directory.}
+\item{vault}{Vault location. To create a vault, use \code{\link[=create_vault]{create_vault()}} or \code{\link[=create_package_vault]{create_package_vault()}}}
 }
 \description{
 Retrieve a secret from the vault

@@ -44,4 +44,7 @@ users that have access to a secret.
 }
 }
 }
+\author{
+Gábor Csárdi and Andrie de Vries
+}
 \keyword{package}

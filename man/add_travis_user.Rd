@@ -10,11 +10,10 @@ add_travis_user(travis_repo, email, vault = NULL)
 \item{travis_repo}{Name of Travis repository, usually in a format
 \code{<<username>>/<<repo>>}}
 
-\item{email}{Email address. If not supplied, constructs an email
-address by using the travis username and repo: \code{travis-username-repo}}
+\item{email}{Email address of the user. This is used to identify
+users.}
 
-\item{vault}{Vault location. Currently, vaults must be in R packages,
-in the \code{inst/vault} directory.}
+\item{vault}{Vault location. To create a vault, use \code{\link[=create_vault]{create_vault()}} or \code{\link[=create_package_vault]{create_package_vault()}}}
 }
 \description{
 Add a user via their Travis repo
