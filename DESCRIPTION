@@ -21,5 +21,7 @@ Imports:
     jsonlite
 Suggests:
     covr,
-    testthat
+    testthat,
+    knitr
 Encoding: UTF-8
+VignetteBuilder: knitr
