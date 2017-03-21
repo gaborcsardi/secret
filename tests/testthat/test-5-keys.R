@@ -4,9 +4,9 @@ context("local key")
 
 test_that("can read local key", {
   skip_on_cran()
-  if(!file.exists("~/.ssh/id_rsa")  && !file.exists("~/.ssh/id_rsa.pem")){
-    skip("No local key available")
-  }
+  z <- tryCatch(local_key(), error = function(e)e)
+  if(inherits(z, "error")) skip("No local key available")
+  
   expect_silent(
     z <- local_key()
   )
