@@ -7,7 +7,7 @@
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/github/gaborcsardi/secret?svg=true)](https://ci.appveyor.com/project/gaborcsardi/secret)
 [![](http://www.r-pkg.org/badges/version/secret)](http://www.r-pkg.org/pkg/secret)
 [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/secret)](http://www.r-pkg.org/pkg/secret)
-[![Coverage Status](https://img.shields.io/codecov/c/github/andrie/secret/master.svg)](https://codecov.io/github/andrie/secret?branch=master)
+[![Coverage Status](https://img.shields.io/codecov/c/github/gaborcsardi/secret/master.svg)](https://codecov.io/github/gaborcsardi/secret?branch=master)
 
 Allow sharing sensitive information, for example passwords, 'API' keys,
 etc., in R packages, using public key cryptography.
