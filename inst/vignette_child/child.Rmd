@@ -18,7 +18,10 @@ Test that the package can read your key:
 
 ```{r}
 library(secret)
-local_key()
+try(
+  # this might fail if you don't have a key at ~/.ssh/id_rsa
+  local_key()
+)
 ```
 
 
