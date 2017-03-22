@@ -14,6 +14,7 @@ carl_private <- keys("carl.pem")
 # Create vault
 
 vault <- file.path(tempdir(), ".vault")
+if(dir.exists(vault)) unlink(vault) # ensure vault is empty
 create_vault(vault)
 
 # Add users with their public keys
@@ -39,18 +40,19 @@ get_secret("secret", key = bob_private, vault = vault)
 
 # But Carl can't decrypt the secret
 
-tryCatch(
-  get_secret("secret", key = carl_private, vault = vault),
-  error = function(e)e
+try(
+  # this throws an error
+  get_secret("secret", key = carl_private, vault = vault)
 )
 
 # Unshare the secret
 
 unshare_secret("secret", users = "bob", vault = vault)
-tryCatch(
-  get_secret("secret", key = bob_private, vault = vault),
-  error = function(e)e
+try(
+  # this throws an error
+  get_secret("secret", key = bob_private, vault = vault)
 )
+
 
 # Delete the secret
 
