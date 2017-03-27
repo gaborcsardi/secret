@@ -32,7 +32,7 @@ add_user <- function(email, public_key, vault = NULL) {
 
 
 get_github_key <- function(github_user, i = 1) {
-  url <- paste0("https://api.github.com/users/", github_user, "/keys")
+  url <- paste("https://api.github.com/users", github_user, "keys", sep = "/")
   r <- curl(url)
   k <- fromJSON(r)
   key <- k$key
@@ -73,7 +73,7 @@ add_github_user <- function(github_user, email = NULL, vault = NULL,
 #' @importFrom  jsonlite fromJSON
 
 get_travis_key <- function(travis_repo){
-  url <- paste0("https://api.travis-ci.org/repos/", travis_repo, "/key")
+  url <- paste("https://api.travis-ci.org/repos", travis_repo, "key", sep = "/")
   r <- curl(url)
   k <- fromJSON(r)
   k <- k$key
