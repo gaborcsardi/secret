@@ -17,7 +17,7 @@
 local_key <- function() {
   path <- Sys.getenv("USER_KEY", "~/.ssh/id_rsa")
   if (file.exists(path)) return(openssl::read_key(path))
-  
+
   path <- Sys.getenv("USER_KEY", "~/.ssh/id_rsa.pem")
   if (file.exists(path)) return(openssl::read_key(path))
   

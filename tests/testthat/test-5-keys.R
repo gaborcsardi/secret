@@ -31,6 +31,5 @@ test_that("can read local key when setting env variable", {
     local_key(),
     "No suitable user key found."
   )
-  
-  
+
 })

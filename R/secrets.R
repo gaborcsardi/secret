@@ -187,8 +187,7 @@ unshare_secret <- function(name, users, vault = NULL) {
   invisible()
 }
 
-## ----------------------------------------------------------------------
-## Internals
+# Internals -------------------------------------------------------------
 
 secret_exists <- function(vault, name) {
   file.exists(get_secret_file(vault, name))

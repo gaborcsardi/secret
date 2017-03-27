@@ -144,8 +144,7 @@ list_users <- function(vault = NULL) {
   )
 }
 
-## ----------------------------------------------------------------------
-## Internals
+# Internals -------------------------------------------------------------
 
 users_exist <- function(vault, users) {
   tryCatch(

@@ -68,8 +68,7 @@ create_vault <- function(path) {
 }
 
 
-## ----------------------------------------------------------------------
-## Internals
+# Internals -------------------------------------------------------------
 
 package_vault_directory <- function(path, create = FALSE) {
   root <- find_package_root_file(path = path)
@@ -94,8 +93,6 @@ find_vault <- function(vault) {
   # 3. check if option is set, and if so, use the option -- NOT YET IMPLEMENTED
   if(is_vault(vault)) {
     vault
-    # && !is.null(getOption("secret.vault_dir"))){
-    # getOption("secret.vault_dir")
   } else {
     package_vault_directory(vault %||% ".")
   }
