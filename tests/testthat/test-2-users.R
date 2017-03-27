@@ -4,7 +4,7 @@ pkg_root <- make_pkg_root()
 create_package_vault(pkg_root)
 if(interactive()) unlink(pkg_root, recursive = TRUE)
 
-{
+({
   alice <- "alice"
   bob   <- "bob"
   user_keys_dir <- file.path(system.file(package = "secret"), "user_keys")
@@ -14,7 +14,7 @@ if(interactive()) unlink(pkg_root, recursive = TRUE)
   bob_public_key    <- key("bob.pub")
   bob_private_key   <- key("bob.pem")
   carl_private_key   <- key("carl.pem")
-}
+})
 
 context("users")
 
