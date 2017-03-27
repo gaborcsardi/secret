@@ -15,4 +15,3 @@ make_pkg_root <- function(){
   writeLines("Package: secret_test", file.path(pkg_root, "DESCRIPTION"))
   pkg_root
 }
-

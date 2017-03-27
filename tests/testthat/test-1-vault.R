@@ -29,4 +29,3 @@ test_that("Can create a vault in a package", {
   )
   
 })
-
