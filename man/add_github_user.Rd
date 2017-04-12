@@ -2,26 +2,36 @@
 % Please edit documentation in R/users.R
 \name{add_github_user}
 \alias{add_github_user}
-\title{Add a user via their GitHub username}
+\title{Add a user via their GitHub username.}
 \usage{
 add_github_user(github_user, email = NULL, vault = NULL, i = 1)
 }
 \arguments{
 \item{github_user}{User name on GitHub.}
 
-\item{email}{Email address. If not supplied, constructs an email address
-with the GitHub user name: \code{github-username}}
+\item{email}{Email address of the github user. If NULL, constructs an
+email as \code{github-<<github_user>>}}
 
-\item{vault}{Vault location. Currently, vaults must be in R packages,
-in the \code{inst/vault} directory.}
+\item{vault}{Vault location. To create a vault, use \code{\link[=create_vault]{create_vault()}} or \code{\link[=create_package_vault]{create_package_vault()}}}
 
 \item{i}{Integer, indicating which GitHub key to use (if more than one
 GitHub key exists).}
 }
 \description{
-Add a user via their GitHub username
+On GitHub, a user can upload multiple keys. This function will download
+the first key by default, but you can change this
+}
+\examples{
+vault <- file.path(tempdir(), ".vault")
+create_vault(vault)
+
+add_github_user("hadley", vault = vault)
+list_users(vault = vault)
+delete_user("github-hadley", vault = vault)
 }
 \seealso{
+\code{\link[=add_travis_user]{add_travis_user()}}
+
 Other user functions: \code{\link{add_travis_user}},
   \code{\link{add_user}}, \code{\link{delete_user}},
   \code{\link{list_users}}

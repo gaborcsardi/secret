@@ -15,10 +15,14 @@
 #' @family secret functions
 #' @export
 local_key <- function() {
+  # nolint start
   path <- Sys.getenv("USER_KEY", "~/.ssh/id_rsa")
+  # nolint end
   if (file.exists(path)) return(openssl::read_key(path))
-  
+
+  # nolint start
   path <- Sys.getenv("USER_KEY", "~/.ssh/id_rsa.pem")
+  # nolint end
   if (file.exists(path)) return(openssl::read_key(path))
   
   stop("No suitable user key found.")

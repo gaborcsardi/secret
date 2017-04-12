@@ -9,8 +9,7 @@ delete_secret(name, vault = NULL)
 \arguments{
 \item{name}{Name of the secret to delete.}
 
-\item{vault}{Vault location. Currently, vaults must be in R packages,
-in the \code{inst/vault} directory.}
+\item{vault}{Vault location. To create a vault, use \code{\link[=create_vault]{create_vault()}} or \code{\link[=create_package_vault]{create_package_vault()}}}
 }
 \description{
 Remove a secret from the vault

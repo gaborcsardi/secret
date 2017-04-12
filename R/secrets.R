@@ -10,13 +10,13 @@
 #' @param value Value of the secret, an arbitrary R object that
 #'   will be serialized using [base::serialize()].
 #' @param users Email addresses of users that will have access to the
-#'   secret.
-#' @param vault Vault location. Currently, vaults must be in R packages,
-#'   in the `inst/vault` directory.
+#'   secret. (See [add_user()])
+#' @param vault Vault location. To create a vault, use [create_vault()] or [create_package_vault()]
 #'
 #' @family secret functions
 #' @export
 #' @importFrom openssl aes_keygen aes_cbc_encrypt read_pubkey rsa_encrypt
+#' @example inst/examples/example-secret.R
 
 add_secret <- function(name, value, users, vault = NULL) {
   assert_that(is_valid_name(name))
@@ -45,6 +45,7 @@ add_secret <- function(name, value, users, vault = NULL) {
 #' @family secret functions
 #' @export
 #' @importFrom openssl rsa_decrypt aes_cbc_decrypt
+#' @example inst/examples/example-secret.R
 
 get_secret <- function(name, key = local_key(), vault = NULL) {
   assert_that(is_valid_name(name))
@@ -134,8 +135,6 @@ list_secrets <- function(vault = NULL) {
 #' Use this function to extend the set of users that have access to a
 #' secret. The calling user must have access to the secret as well.
 #'
-#' @param users Character vector of usernames or email addresses
-#'   to share the secret with.
 #' @param key Private key that has access to the secret. (I.e. its
 #'   corresponding public key is among the vault users.)
 #' @inheritParams add_secret
@@ -166,8 +165,6 @@ share_secret <- function(name, users, key = local_key(), vault = NULL) {
 #' version control history, or if they have a copy of the project. They
 #' will not have access to future values of the secret, though.
 #'
-#' @param users Character vector of usernames or email addresses
-#'   to unshare the secret with.
 #' @inheritParams add_secret
 #'
 #' @seealso [share_secret()]
@@ -190,8 +187,7 @@ unshare_secret <- function(name, users, vault = NULL) {
   invisible()
 }
 
-## ----------------------------------------------------------------------
-## Internals
+# Internals -------------------------------------------------------------
 
 secret_exists <- function(vault, name) {
   file.exists(get_secret_file(vault, name))

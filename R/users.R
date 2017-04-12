@@ -2,7 +2,7 @@
 #' Add a new user to the vault
 #'
 #' By default the new user does not have access to any secrets.
-#' See [share_secret()] to give them access.
+#' See [add_secret()] or [share_secret()] to give them access.
 #'
 #' @param email Email address of the user. This is used to identify
 #'   users.
@@ -16,6 +16,7 @@
 #' @family user functions
 #' @export
 #' @importFrom openssl read_pubkey write_pem
+#' @example inst/examples/example-secret.R
 
 add_user <- function(email, public_key, vault = NULL) {
   assert_that(is_email_address(email))
@@ -31,26 +32,31 @@ add_user <- function(email, public_key, vault = NULL) {
 
 
 get_github_key <- function(github_user, i = 1) {
-  url <- paste0("https://api.github.com/users/", github_user, "/keys")
+  url <- paste("https://api.github.com/users", github_user, "keys", sep = "/")
   r <- curl(url)
   k <- fromJSON(r)
   key <- k$key
   key[i]
 }
 
-#' Add a user via their GitHub username
+#' Add a user via their GitHub username.
+#' 
+#' On GitHub, a user can upload multiple keys. This function will download
+#' the first key by default, but you can change this
 #'
 #' @param github_user User name on GitHub.
-#' @param email Email address. If not supplied, constructs an email address
-#' with the GitHub user name: `github-username`
+#' @param email Email address of the github user. If NULL, constructs an
+#' email as `github-<<github_user>>`
 #' @param i Integer, indicating which GitHub key to use (if more than one
 #' GitHub key exists).
-#' @inheritParams add_secret
+#' @inheritParams add_user
 #'
 #' @family user functions
 #' @export
 #' 
 #' @importFrom assertthat is.count
+#' @example inst/examples/example-github.R
+#' @seealso [add_travis_user()]
 
 add_github_user <- function(github_user, email = NULL, vault = NULL, 
                             i = 1) {
@@ -67,7 +73,7 @@ add_github_user <- function(github_user, email = NULL, vault = NULL,
 #' @importFrom  jsonlite fromJSON
 
 get_travis_key <- function(travis_repo){
-  url <- paste0("https://api.travis-ci.org/repos/", travis_repo, "/key")
+  url <- paste("https://api.travis-ci.org/repos", travis_repo, "key", sep = "/")
   r <- curl(url)
   k <- fromJSON(r)
   k <- k$key
@@ -75,16 +81,18 @@ get_travis_key <- function(travis_repo){
 }
 
 
-#' Add a user via their Travis repo
+#' Add a user via their Travis repo.
+#' 
+#' On Travis, every repo has a private/public key pair. This function adds a 
+#' user and downloads the public key from Travis.
 #' 
 #' @param travis_repo Name of Travis repository, usually in a format 
 #' `<<username>>/<<repo>>`
-#' @param email Email address. If not supplied, constructs an email 
-#' address by using the travis username and repo: `travis-username-repo`
-#' @inheritParams add_secret
+#' @inheritParams add_user
 #'
 #' @family user functions
 #' @export
+#' @example inst/examples/example-travis.R
 
 add_travis_user <- function(travis_repo, email, vault = NULL) {
   if(missing(email) || is.null(email)){
@@ -136,8 +144,7 @@ list_users <- function(vault = NULL) {
   )
 }
 
-## ----------------------------------------------------------------------
-## Internals
+# Internals -------------------------------------------------------------
 
 users_exist <- function(vault, users) {
   tryCatch(

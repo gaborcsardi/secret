@@ -21,5 +21,8 @@ Imports:
     jsonlite
 Suggests:
     covr,
-    testthat
+    testthat,
+    knitr,
+    rmarkdown
 Encoding: UTF-8
+VignetteBuilder: knitr
