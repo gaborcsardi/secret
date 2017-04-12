@@ -39,3 +39,7 @@ artifacts:
 
   - path: '\*_*.zip'
     name: Bits
+
+environment:
+  GITHUB_PAT:
+    secure: Nkvazgyo9FBXlhdY1vdqGsSNJl/DjKXhBYRFd105iEpZxKAXWI5X1aQ/awLgCfWa
