@@ -2,7 +2,7 @@
 % Please edit documentation in R/secrets.R
 \name{share_secret_with_key1}
 \alias{share_secret_with_key1}
-\title{Share a secret with a single user, AES key is known}
+\title{Share a secret with a single user, AES key is known.}
 \usage{
 share_secret_with_key1(name, email, aeskey, vault)
 }
@@ -16,6 +16,6 @@ share_secret_with_key1(name, email, aeskey, vault)
 \item{vault}{Vault directory.}
 }
 \description{
-Share a secret with a single user, AES key is known
+Share a secret with a single user, AES key is known.
 }
 \keyword{internal}

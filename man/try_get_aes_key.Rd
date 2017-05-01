@@ -2,7 +2,7 @@
 % Please edit documentation in R/secrets.R
 \name{try_get_aes_key}
 \alias{try_get_aes_key}
-\title{Try to get the AES key of a secret, using a private RSA key}
+\title{Try to get the AES key of a secret, using a private RSA key.}
 \usage{
 try_get_aes_key(vault, name, key)
 }

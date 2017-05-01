@@ -36,7 +36,7 @@ test_that("can add secrets", {
   
   expect_equal(
     list_secrets(pkg_root),
-    "secret_one"
+    data.frame(secret = "secret_one", email = "alice")
   )
 })
 
@@ -79,7 +79,10 @@ test_that("add second secret shared by multiple users", {
   )
   expect_equal(
     list_secrets(pkg_root),
-    c("secret_one", "secret_two")
+    data.frame(
+      secret = c("secret_one", "secret_two", "secret_two"), 
+      email = c("alice", "alice", "bob")
+    )
   )
   expect_error(
     # alice can not decrypt with public key
@@ -129,7 +132,10 @@ test_that("add second secret shared by multiple users", {
   
   expect_equal(
     list_secrets(pkg_root),
-    "secret_one"
+    data.frame(
+      secret = character(0), 
+      email = character(0)
+    )
   )
   expect_equal(
     list_users(pkg_root),
@@ -147,7 +153,10 @@ test_that("use share_secret() to share between alice and bob", {
   )
   expect_equal(
     list_secrets(pkg_root),
-    c("secret_3", "secret_one")
+    data.frame(
+      secret = "secret_3",
+      email = "alice"
+    )
   )
   
   expect_null(
@@ -169,7 +178,10 @@ test_that("use share_secret() to share between alice and bob", {
 
   expect_equal(
     list_secrets(pkg_root),
-    c("secret_3", "secret_one")
+    data.frame(
+      secret = c("secret_3", "secret_3"),
+      email = c("alice", "bob")
+    )
   )
   expect_equal(
     list_users(pkg_root),
@@ -200,6 +212,13 @@ test_that("udpate a secret", {
   expect_equal(
     get_secret("secret_3", key = alice_private_key, vault = pkg_root),
     "foo"
+  )
+  expect_equal(
+    list_secrets(pkg_root),
+    data.frame(
+      secret = c("secret_3"),
+      email = c("alice")
+    )
   )
   
 })

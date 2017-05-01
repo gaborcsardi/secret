@@ -1,4 +1,4 @@
-#' Add a new secret to the vault
+#' Add a new secret to the vault.
 #'
 #' By default, the newly added secret is not shared with other
 #' users. See the users argument if you want to change this.
@@ -35,7 +35,7 @@ add_secret <- function(name, value, users, vault = NULL) {
   invisible()
 }
 
-#' Retrieve a secret from the vault
+#' Retrieve a secret from the vault.
 #'
 #' @param name Name of the secret.
 #' @param key The private RSA key to use. It defaults to the current
@@ -95,7 +95,7 @@ update_secret <- function(name, value, key = local_key(), vault = NULL) {
   invisible()
 }
 
-#' Remove a secret from the vault
+#' Remove a secret from the vault.
 #'
 #' @param name Name of the secret to delete.
 #' @inheritParams add_secret
@@ -118,25 +118,38 @@ delete_secret <- function(name, vault = NULL) {
   invisible()
 }
 
-#' List all secrets
+#' List all secrets.
+#' 
+#' Returns a data frame with secrets and emails that these are shared with.
 #'
 #' @inheritParams add_secret
 #'
 #' @family secret functions
+#' @return data.frame
 #' @export
 
 list_secrets <- function(vault = NULL) {
   vault <- find_vault(vault)
-  basename(list_all_secrets(vault))
+  # basename(list_all_secrets(vault))
+  ff <- list.files(vault, recursive = TRUE, full.names = TRUE, pattern = ".enc")
+  ff <- gsub(".*?/secrets/", "", ff)
+  ff <- gsub("\\.enc$", "", ff)
+  data.frame(
+    secret = dirname(ff),
+    email  = basename(ff)
+  )
 }
 
-#' Share a secret among some users
+#' Share a secret among some users.
 #'
 #' Use this function to extend the set of users that have access to a
 #' secret. The calling user must have access to the secret as well.
 #'
 #' @param key Private key that has access to the secret. (I.e. its
 #'   corresponding public key is among the vault users.)
+#' @param users addresses of users that will have access to the secret. 
+#' (See [add_user()]). If missing, returns the names of users with access to 
+#' this secret.
 #' @inheritParams add_secret
 #'
 #' @seealso [unshare_secret()]
@@ -146,6 +159,9 @@ list_secrets <- function(vault = NULL) {
 
 share_secret <- function(name, users, key = local_key(), vault = NULL) {
   assert_that(is_valid_name(name))
+  if(missing(users) || is.null(users)) {return(
+    get_secret_user_emails(name, vault = vault)
+  )}
   assert_that(is_email_addresses(users))
   vault <- find_vault(vault)
   assert_that(secret_exists(vault, name))
@@ -206,7 +222,7 @@ on_failure(secret_does_not_exist) <- function(call, env) {
 }
 
 
-#' Share a secret, its AES key is known already
+#' Share a secret, its AES key is known already.
 #'
 #' @param name Name of the secret.
 #' @param users Email addresses of users.
@@ -220,7 +236,7 @@ share_secret_with_key <- function(name, users, aeskey, vault) {
          name = name, aeskey = aeskey, vault = vault)
 }
 
-#' Share a secret with a single user, AES key is known
+#' Share a secret with a single user, AES key is known.
 #'
 #' @param name Name of the secret.
 #' @param email Email address of the user.
@@ -237,7 +253,7 @@ share_secret_with_key1 <- function(name, email, aeskey, vault) {
   writeBin(encaes, secret_user_file)
 }
 
-#' Try to get the AES key of a secret, using a private RSA key
+#' Try to get the AES key of a secret, using a private RSA key.
 #'
 #' We just try the private key against all encrypted copies of the
 #' AES key. If none of the succeed, then we return `NULL`. Otherwise
@@ -258,7 +274,7 @@ try_get_aes_key <- function(vault, name, key) {
   NULL
 }
 
-#' Store a secret, encrypted with its AES key
+#' Store a secret, encrypted with its AES key.
 #'
 #' @param name Name of secret.
 #' @param value Value of secret.

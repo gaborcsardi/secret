@@ -2,15 +2,18 @@
 % Please edit documentation in R/secrets.R
 \name{list_secrets}
 \alias{list_secrets}
-\title{List all secrets}
+\title{List all secrets.}
 \usage{
 list_secrets(vault = NULL)
 }
 \arguments{
 \item{vault}{Vault location. To create a vault, use \code{\link[=create_vault]{create_vault()}} or \code{\link[=create_package_vault]{create_package_vault()}}}
 }
+\value{
+data.frame
+}
 \description{
-List all secrets
+Returns a data frame with secrets and emails that these are shared with.
 }
 \seealso{
 Other secret functions: \code{\link{add_secret}},

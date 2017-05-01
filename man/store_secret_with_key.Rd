@@ -2,7 +2,7 @@
 % Please edit documentation in R/secrets.R
 \name{store_secret_with_key}
 \alias{store_secret_with_key}
-\title{Store a secret, encrypted with its AES key}
+\title{Store a secret, encrypted with its AES key.}
 \usage{
 store_secret_with_key(name, value, key, vault)
 }
@@ -16,6 +16,6 @@ store_secret_with_key(name, value, key, vault)
 \item{vault}{Vault directory.}
 }
 \description{
-Store a secret, encrypted with its AES key
+Store a secret, encrypted with its AES key.
 }
 \keyword{internal}

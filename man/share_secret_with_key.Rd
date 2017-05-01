@@ -2,7 +2,7 @@
 % Please edit documentation in R/secrets.R
 \name{share_secret_with_key}
 \alias{share_secret_with_key}
-\title{Share a secret, its AES key is known already}
+\title{Share a secret, its AES key is known already.}
 \usage{
 share_secret_with_key(name, users, aeskey, vault)
 }
@@ -16,6 +16,6 @@ share_secret_with_key(name, users, aeskey, vault)
 \item{vault}{Vault directory.}
 }
 \description{
-Share a secret, its AES key is known already
+Share a secret, its AES key is known already.
 }
 \keyword{internal}
