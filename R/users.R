@@ -30,11 +30,22 @@ add_user <- function(email, public_key, vault = NULL) {
   write_pem(key, path = user_file)
 }
 
+#' @importFrom curl new_handle handle_setheaders curl_fetch_memory
 
 get_github_key <- function(github_user, i = 1) {
   url <- paste("https://api.github.com/users", github_user, "keys", sep = "/")
-  r <- curl(url)
-  k <- fromJSON(r)
+
+  ## Use GitHub token from GITHUB_PATH env var, if set
+  pat <- Sys.getenv("GITHUB_PAT", "")
+  if (pat != "") {
+    h <- new_handle()
+    handle_setheaders(h, Authorization = paste("token", pat))
+    resp <- curl_fetch_memory(url, handle = h)
+  } else {
+    resp <- curl_fetch_memory(url)
+  }
+
+  k <- fromJSON(rawToChar(resp$content))
   key <- k$key
   key[i]
 }
