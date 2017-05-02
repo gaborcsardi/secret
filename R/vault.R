@@ -1,5 +1,5 @@
 
-#' Create a vault, as a folder or in an R package
+#' Create a vault, as a folder or in an R package.
 #'
 #' A vault is a folder that contains information about users and the secrets
 #' they share. You can create a vault as either a standalone folder, or
@@ -145,8 +145,9 @@ get_secret_user_emails <- function(vault, name) {
 }
 
 list_user_secrets <- function(vault, email) {
-  secrets <- list_all_secrets(vault)
-  file.path(secrets, paste0(email, ".enc"))
+  z <- list.files(vault, pattern = paste0("^", email, ".enc"), 
+                  full.names = TRUE, recursive = TRUE)
+  normalizePath(z, winslash = "/")
 }
 
 list_all_secrets <- function(vault) {

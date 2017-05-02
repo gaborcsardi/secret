@@ -2,7 +2,7 @@
 % Please edit documentation in R/users.R
 \name{add_user}
 \alias{add_user}
-\title{Add a new user to the vault}
+\title{Add a new user to the vault.}
 \usage{
 add_user(email, public_key, vault = NULL)
 }

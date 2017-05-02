@@ -3,7 +3,7 @@
 \name{create_package_vault}
 \alias{create_package_vault}
 \alias{create_vault}
-\title{Create a vault, as a folder or in an R package}
+\title{Create a vault, as a folder or in an R package.}
 \usage{
 create_package_vault(path = ".")
 

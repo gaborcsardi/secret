@@ -29,6 +29,16 @@ on_failure(is_email_addresses) <- function(call, env) {
   paste0(deparse(call$x), " must be a vector of email addresses")
 }
 
+is_valid_user <- function(email, vault){
+  user_file <- get_user_file(vault, email)
+  file.exists(user_file)
+}
+
+on_failure(is_valid_user) <- function(call, env) {
+  paste0(deparse(call$email), " does not exist as a user")
+}
+
+
 #  --------------------------------------------------------------------
 
 is_valid_name <- function(x) {

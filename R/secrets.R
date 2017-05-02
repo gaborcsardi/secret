@@ -159,8 +159,10 @@ list_secrets <- function(vault = NULL) {
 
 share_secret <- function(name, users, key = local_key(), vault = NULL) {
   assert_that(is_valid_name(name))
-  if(missing(users) || is.null(users)) {return(
-    get_secret_user_emails(name, vault = vault)
+  # if users is empty, then return list of users with access to secret
+  if(missing(users) || is.null(users)) {
+    return(
+      get_secret_user_emails(name, vault = vault)
   )}
   assert_that(is_email_addresses(users))
   vault <- find_vault(vault)
@@ -174,7 +176,7 @@ share_secret <- function(name, users, key = local_key(), vault = NULL) {
   invisible()
 }
 
-#' Unshare a secret among some users
+#' Unshare a secret among some users.
 #'
 #' Use this function to restrict the set of users that have access to a
 #' secret. Note that users may still have access to the secret, through
