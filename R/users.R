@@ -135,6 +135,11 @@ delete_user <- function(email, vault = NULL) {
   secrets <- list_user_secrets(vault, email)
   ## Remove everything in one go. This is still not atomic, of course...
   file.remove(user_file, secrets)
+  secrets <- list_secrets(vault)
+  if(any(is.na(secrets$email))) {
+    warning("This operation left orphaned secrets behind.",
+            "Use list_secrets() and delete_secret() to remove orphans")
+  }
   invisible()
 }
 
