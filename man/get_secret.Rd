@@ -34,7 +34,7 @@ carl_private <- keys("carl.pem")
 # Create vault
 
 vault <- file.path(tempdir(), ".vault")
-if(dir.exists(vault)) unlink(vault) # ensure vault is empty
+if (dir.exists(vault)) unlink(vault) # ensure vault is empty
 create_vault(vault)
 
 # Add users with their public keys

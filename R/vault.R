@@ -72,11 +72,11 @@ create_vault <- function(path) {
 
 package_vault_directory <- function(path, create = FALSE) {
   root <- find_package_root_file(path = path)
-  if(create){
+  if (create){
     return(normalizePath(file.path(root, "inst", "vault"), mustWork = FALSE))
   }
   v <- file.path(root, "vault")
-  v <- if(dir.exists(v)) v else file.path(root, "inst", "vault")
+  v <- if (dir.exists(v)) v else file.path(root, "inst", "vault")
   normalizePath(v, mustWork = FALSE)
 }
 
@@ -91,7 +91,7 @@ find_vault <- function(vault) {
   # 1. see if vault is a vault
   # 2. check for a package vault
   # 3. check if option is set, and if so, use the option -- NOT YET IMPLEMENTED
-  if(is_vault(vault)) {
+  if (is_vault(vault)) {
     vault
   } else {
     package_vault_directory(vault %||% ".")

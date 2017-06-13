@@ -4,7 +4,7 @@ context("local key")
 test_that("can read local key", {
   skip_on_cran()
   z <- tryCatch(local_key(), error = function(e)e)
-  if(inherits(z, "error")) skip("No local key available")
+  if (inherits(z, "error")) skip("No local key available")
   
   expect_is(local_key(), "key")
 })
