@@ -4,13 +4,12 @@ context("local key")
 test_that("can read local key", {
 
   mockery::stub(local_key, "Sys.getenv", "sdfqrtafgaetsgsfgqr")
-  z <- tryCatch(local_key(), error = function(e) e)
-  if (inherits(z, "error")) skip("No local key available")
+  expect_error(local_key(), "No suitable user key found")
 
   pth <- system.file("user_keys/alice.pem", package = "secret")
-  z <- mockery::stub(local_key, "Sys.getenv", pth)
+  mockery::stub(local_key, "Sys.getenv", pth)
   
-  expect_is(z, "key")
+  expect_is(local_key(), "key")
 })
 
 test_that("can read local key when setting env variable", {
