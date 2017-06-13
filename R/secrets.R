@@ -72,6 +72,7 @@ get_secret <- function(name, key = local_key(), vault = NULL) {
 #'
 #' @family secret functions
 #' @export
+#' @importFrom openssl aes_keygen
 
 update_secret <- function(name, value, key = local_key(), vault = NULL) {
   assert_that(is_valid_name(name))
@@ -82,8 +83,11 @@ update_secret <- function(name, value, key = local_key(), vault = NULL) {
     stop("secret ", sQuote(name), " does not exist")
   }
 
-  ## Need the AES key, to encrypt the new value
-  aeskey <- try_get_aes_key(vault, name, key)
+  ## Need a new AES key, because we might have deleted some users since
+  ## the last value was set. These users still have the old AES key,
+  ## but they should not have access to the new value of the secret.
+  ## See also https://github.com/gaborcsardi/secret/issues/10
+  aeskey <- aes_keygen()
 
   ## Store the secret
   store_secret_with_key(name, value, aeskey, vault)

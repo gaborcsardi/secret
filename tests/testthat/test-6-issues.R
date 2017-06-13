@@ -57,14 +57,12 @@ test_that("update a secret, deleted user has no access", {
     "Access denied to secret"
   )
 
-  ## So far so good, but Bob still has access to the secret, using his
-  ## saved AES key. TODO: fix this. We need to change the AES key of the
-  ## secret, when the value of the secret changes.
   secret_file <- get_secret_file(
     vault = find_vault(pkg_root),
     name = "secret_one"
   )
 
+  ## The old AES key of the secret is not good any more.
   secret <- unserialize(read_raw(secret_file))
   expect_error(
     openssl::aes_cbc_decrypt(secret, aes),
