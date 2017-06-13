@@ -2,7 +2,7 @@
 % Please edit documentation in R/secrets.R
 \name{unshare_secret}
 \alias{unshare_secret}
-\title{Unshare a secret among some users}
+\title{Unshare a secret among some users.}
 \usage{
 unshare_secret(name, users, vault = NULL)
 }

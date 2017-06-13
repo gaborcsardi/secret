@@ -40,13 +40,10 @@ test_that("can add travis user", {
     ),
     "travis-gaborcsardi-secret.pem"
   )
-  expect_true(
-    file.exists(
-      file.path(pkg_root,
-                "inst", "vault", "users", "travis-gaborcsardi-secret.pem"
-      )
-    )
+  exp_file <- file.path(
+    pkg_root, "inst", "vault", "users", "travis-gaborcsardi-secret.pem"
   )
+  expect_true(file.exists(exp_file))
 })
 
 github_key <- paste0(
@@ -79,10 +76,10 @@ test_that("can add github user",{
     ),
     "github-gaborcsardi.pem"
   )
+  exp_file <- file.path(
+    pkg_root, "inst", "vault", "users", "github-gaborcsardi.pem"
+  )
   expect_true(
-    file.exists(
-      file.path(pkg_root, "inst", "vault", "users", "github-gaborcsardi.pem"
-      )
-    )
+    file.exists(exp_file)
   )
 })

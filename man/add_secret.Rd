@@ -2,7 +2,7 @@
 % Please edit documentation in R/secrets.R
 \name{add_secret}
 \alias{add_secret}
-\title{Add a new secret to the vault}
+\title{Add a new secret to the vault.}
 \usage{
 add_secret(name, value, users, vault = NULL)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/users.R
 \name{delete_user}
 \alias{delete_user}
-\title{Delete a user}
+\title{Delete a user.}
 \usage{
 delete_user(email, vault = NULL)
 }

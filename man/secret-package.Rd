@@ -4,7 +4,7 @@
 \name{secret-package}
 \alias{secret-package}
 \alias{secret}
-\title{Share Sensitive Information in R Packages}
+\title{Share Sensitive Information in R Packages.}
 \description{
 Allow sharing sensitive information, for example passwords, API keys,
 or other information in R packages, using public key cryptography.

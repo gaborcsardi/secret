@@ -1,5 +1,5 @@
 
-#' Add a new user to the vault
+#' Add a new user to the vault.
 #'
 #' By default the new user does not have access to any secrets.
 #' See [add_secret()] or [share_secret()] to give them access.
@@ -114,7 +114,7 @@ add_travis_user <- function(travis_repo, email, vault = NULL) {
 }
 
 
-#' Delete a user
+#' Delete a user.
 #'
 #' It also removes access of the user to all secrets, so if the user
 #' is re-added again, they will not have access to any secrets.
@@ -129,14 +129,17 @@ delete_user <- function(email, vault = NULL) {
   assert_that(is_email_address(email))
   vault <- find_vault(vault)
   ## Check if user exists
+  assert_that(is_valid_user(email, vault))
   user_file <- get_user_file(vault, email)
-  if (!file.exists(user_file)) {
-    stop("User ", sQuote(email), " does not exist")
-  }
   ## Get all secrets they have access to
   secrets <- list_user_secrets(vault, email)
   ## Remove everything in one go. This is still not atomic, of course...
   file.remove(user_file, secrets)
+  secrets <- list_secrets(vault)
+  if(any(is.na(secrets$email))) {
+    warning("This operation left orphaned secrets behind.",
+            "Use list_secrets() and delete_secret() to remove orphans")
+  }
   invisible()
 }
 
@@ -164,6 +167,6 @@ users_exist <- function(vault, users) {
   )
 }
 
-on_failure(secret_exists) <- function(call, env) {
-  paste0("Secret ", deparse(call$name), " does not exist")
+on_failure(users_exist) <- function(call, env) {
+  paste0("Secret ", deparse(call$users), " do not exist")
 }

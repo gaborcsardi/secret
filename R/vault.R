@@ -1,5 +1,5 @@
 
-#' Create a vault, as a folder or in an R package
+#' Create a vault, as a folder or in an R package.
 #'
 #' A vault is a folder that contains information about users and the secrets
 #' they share. You can create a vault as either a standalone folder, or
@@ -71,7 +71,12 @@ create_vault <- function(path) {
 # Internals -------------------------------------------------------------
 
 package_vault_directory <- function(path, create = FALSE) {
-  root <- find_package_root_file(path = path)
+  assert_that(is_valid_dir(path))
+  root <- tryCatch(rprojroot::find_package_root_file(path = path),
+                   error = function(e)e)
+  if (inherits(root, "error")) {
+    stop("No package or package vault found", call. = FALSE)
+  }
   if (create){
     return(normalizePath(file.path(root, "inst", "vault"), mustWork = FALSE))
   }
@@ -91,11 +96,9 @@ find_vault <- function(vault) {
   # 1. see if vault is a vault
   # 2. check for a package vault
   # 3. check if option is set, and if so, use the option -- NOT YET IMPLEMENTED
-  if (is_vault(vault)) {
-    vault
-  } else {
-    package_vault_directory(vault %||% ".")
-  }
+  assert_that(is_valid_dir(vault))
+  if (is_vault(vault)) return(vault)
+  package_vault_directory(vault %||% ".")
 }
 
 #' Get the file of a user (email)
@@ -140,13 +143,15 @@ get_secret_user_emails <- function(vault, name) {
 }
 
 list_user_secrets <- function(vault, email) {
-  secrets <- list_all_secrets(vault)
-  file.path(secrets, paste0(email, ".enc"))
+  z <- list.files(vault, pattern = paste0("^", email, ".enc"), 
+                  full.names = TRUE, recursive = TRUE)
+  normalizePath(z, winslash = "/")
 }
 
 list_all_secrets <- function(vault) {
   secrets <- normalizePath(
-    dir(file.path(vault, "secrets"), full.names = TRUE)
+    dir(file.path(vault, "secrets"), full.names = TRUE),
+    winslash = "/"
   )
   Filter(is_dir, secrets)
 }

@@ -13,8 +13,10 @@ addons:
     packages:
       - libsecret-1-dev
 
+r_binary_packages: withr
+
 after_success:
-  - test $TRAVIS_R_VERSION_STRING = "release" && Rscript -e 'covr::codecov()'
+  - test $TRAVIS_R_VERSION_STRING = "release" && Rscript -e 'withr::with_envvar(c(NOT_CRAN="true"), {covr::codecov()})'
 
 env:
   global:

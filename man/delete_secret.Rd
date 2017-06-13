@@ -2,7 +2,7 @@
 % Please edit documentation in R/secrets.R
 \name{delete_secret}
 \alias{delete_secret}
-\title{Remove a secret from the vault}
+\title{Remove a secret from the vault.}
 \usage{
 delete_secret(name, vault = NULL)
 }
@@ -12,7 +12,7 @@ delete_secret(name, vault = NULL)
 \item{vault}{Vault location. To create a vault, use \code{\link[=create_vault]{create_vault()}} or \code{\link[=create_package_vault]{create_package_vault()}}}
 }
 \description{
-Remove a secret from the vault
+Remove a secret from the vault.
 }
 \seealso{
 Other secret functions: \code{\link{add_secret}},

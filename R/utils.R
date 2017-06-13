@@ -6,7 +6,7 @@ create_dir <- function(path) {
 `%||%` <- function(l, r) if (is.null(l)) r else l
 
 is_dir <- function(x) {
-  file.info(x)$isdir
+  isTRUE(file.info(x)$isdir)
 }
 
 read_raw <- function(path) {

@@ -1,5 +1,5 @@
 
-#' Share Sensitive Information in R Packages
+#' Share Sensitive Information in R Packages.
 #'
 #' Allow sharing sensitive information, for example passwords, API keys,
 #' or other information in R packages, using public key cryptography.
