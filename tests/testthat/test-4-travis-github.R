@@ -1,14 +1,11 @@
 
 pkg_root <- make_pkg_root()
 create_package_vault(pkg_root)
-if (interactive()) unlink(pkg_root, recursive = TRUE)
-
 
 context("travis and github")
 
 test_that("can add travis user",{
   skip_on_cran()
-  skip_on_travis()
   expect_equal(
     basename(
       add_travis_user("gaborcsardi/secret", vault = pkg_root)
