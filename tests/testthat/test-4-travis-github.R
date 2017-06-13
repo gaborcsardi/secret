@@ -1,4 +1,4 @@
-if(interactive()) library(testthat)
+
 pkg_root <- make_pkg_root()
 create_package_vault(pkg_root)
 if(interactive()) unlink(pkg_root, recursive = TRUE)

@@ -1,4 +1,3 @@
-if(interactive()) library(testthat)
 
 context("local key")
 

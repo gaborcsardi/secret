@@ -1,5 +1,3 @@
-if(interactive()) library(testthat)
-
 
 # Function to test for identical file path, after normalizing paths
 expect_same_filepath <- function(object, expected){
