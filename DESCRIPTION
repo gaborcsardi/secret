@@ -24,6 +24,7 @@ Suggests:
     mockery,
     testthat,
     knitr,
-    rmarkdown
+    rmarkdown,
+    withr
 Encoding: UTF-8
 VignetteBuilder: knitr
