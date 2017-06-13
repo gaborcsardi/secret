@@ -21,6 +21,7 @@ Imports:
     jsonlite
 Suggests:
     covr,
+    mockery,
     testthat,
     knitr,
     rmarkdown
