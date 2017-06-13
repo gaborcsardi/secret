@@ -48,4 +48,4 @@ devtools::install_github("gaborcsardi/secret")
 
 ## License
 
-MIT © Gábor Csárdi
+MIT © Gábor Csárdi, Andrie de Vries

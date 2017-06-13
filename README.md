@@ -178,4 +178,4 @@ get_secret("secret_one", key = alice_private_key, vault = vault)
 
 ## License
 
-MIT © Gábor Csárdi
+MIT © Gábor Csárdi, Andrie de Vries
