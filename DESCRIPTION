@@ -9,7 +9,7 @@ Description: Allow sharing sensitive information, for example passwords,
     'API' keys, etc., in R packages, using public key cryptography.
 License: MIT + file LICENSE
 LazyData: true
-URL: https://github.com/gaborcsardi/secret
+URL: https://github.com/gaborcsardi/secret#readme
 BugReports: https://github.com/gaborcsardi/secret/issues
 RoxygenNote: 6.0.1
 Roxygen: list(markdown = TRUE)
@@ -21,6 +21,7 @@ Imports:
     jsonlite
 Suggests:
     covr,
+    mockery,
     testthat,
     knitr,
     rmarkdown

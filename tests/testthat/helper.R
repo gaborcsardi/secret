@@ -1,5 +1,3 @@
-if(interactive()) library(testthat)
-
 
 # Function to test for identical file path, after normalizing paths
 expect_same_filepath <- function(object, expected){
@@ -13,7 +11,7 @@ make_pkg_root <- function(){
                             winslash = "/", 
                             mustWork = FALSE
   )
-  if(dir.exists(pkg_root)) unlink(pkg_root, recursive = TRUE)
+  if (dir.exists(pkg_root)) unlink(pkg_root, recursive = TRUE)
   dir.create(pkg_root, showWarnings = FALSE)
   writeLines("Package: secret_test", file.path(pkg_root, "DESCRIPTION"))
   pkg_root

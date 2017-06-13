@@ -72,7 +72,7 @@ get_github_key <- function(github_user, i = 1) {
 add_github_user <- function(github_user, email = NULL, vault = NULL, 
                             i = 1) {
   assert_that(is.count(i))
-  if(missing(email) || is.null(email)){
+  if (missing(email) || is.null(email)){
     email <- paste0("github-", github_user)
   }
   key <- get_github_key(github_user)
@@ -106,7 +106,7 @@ get_travis_key <- function(travis_repo){
 #' @example inst/examples/example-travis.R
 
 add_travis_user <- function(travis_repo, email, vault = NULL) {
-  if(missing(email) || is.null(email)){
+  if (missing(email) || is.null(email)){
     email <- paste0("travis-", gsub("/", "-", travis_repo))
   }
   key <- get_travis_key(travis_repo)
