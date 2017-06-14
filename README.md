@@ -1,12 +1,3 @@
----
-title: "secret: Share Sensitive Information in R Packages"
-output: 
-  html_document: 
-    keep_md: yes
-    self_contained: yes
-    smart: no
----
-
 
 
 
