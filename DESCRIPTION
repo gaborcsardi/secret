@@ -1,6 +1,6 @@
 Package: secret
 Title: Share Sensitive Information in R Packages
-Version: 0.0.0.9000
+Version: 1.0.0
 Authors@R: c(person("Gábor", "Csárdi", role=c("aut", "cre"), 
              email="csardi.gabor@gmail.com"),
     person("Andrie", "de Vries", role=c("aut"), 
