@@ -182,22 +182,17 @@ list_secrets <- function(vault = NULL) {
 #' @param key Private key that has access to the secret. (I.e. its
 #'   corresponding public key is among the vault users.)
 #' @param users addresses of users that will have access to the secret.
-#'   (See [add_user()]). If missing, returns the names of users with access
-#'   to this secret.
+#'   (See [add_user()]).
 #' @inheritParams add_secret
 #'
-#' @seealso [unshare_secret()]
+#' @seealso [unshare_secret()], [list_owners()] to list users that have
+#' access to a secret.
 #'
 #' @family secret functions
 #' @export
 
 share_secret <- function(name, users, key = local_key(), vault = NULL) {
   assert_that(is_valid_name(name))
-  # if users is empty, then return list of users with access to secret
-  if(missing(users) || is.null(users)) {
-    return(
-      get_secret_user_emails(name, vault = vault)
-    )}
   assert_that(is_email_addresses(users))
   vault <- find_vault(vault)
   assert_that(secret_exists(vault, name))
@@ -208,6 +203,19 @@ share_secret <- function(name, users, key = local_key(), vault = NULL) {
   share_secret_with_key(name, users, aeskey, vault)
 
   invisible()
+}
+
+#' List users that have access to a secret
+#'
+#' @inheritParams add_secret
+#'
+#' @family secret functions
+#' @export
+
+list_owners <- function(name, vault = NULL) {
+  assert_that(is_valid_name(name))
+  vault <- find_vault(vault)
+  get_secret_user_emails(name, vault = vault)
 }
 
 #' Unshare a secret among some users.
