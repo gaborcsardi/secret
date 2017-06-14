@@ -1,3 +1,10 @@
+
+### Load the package:
+
+```{r}
+library(secret)
+```
+
 ### Set up your keys:
 
 Ensure you know the location of your public and private keys. In Linux this is usually the folder `~/.ssh`, so on Windows you may want to choose the same folder.
@@ -14,23 +21,12 @@ You can change this default by setting an environment variable `USER_KEY`:
 Sys.setenv(USER_KEY = "path/to/private/key")
 ```
 
-Test that the package can read your key:
+Test that the package can read your key. This might fail if you don't have a key at `~/.ssh/id_rsa`, or if your private key has a pass phrase and R in running in non-interactive mode.
 
 ```{r}
 library(secret)
-try(
-  # this might fail if you don't have a key at ~/.ssh/id_rsa
-  local_key()
-)
+try(local_key(), silent = TRUE)
 ```
-
-
-### Load the package:
-
-```{r}
-library(secret)
-```
-
 
 ### Create a vault:
 

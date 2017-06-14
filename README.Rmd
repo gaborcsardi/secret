@@ -11,7 +11,6 @@ output:
 knitr::opts_chunk$set(
   comment = "#",
   tidy = FALSE,
-  error = FALSE,
   fig.width = 8,
   fig.height = 8)
 ```
@@ -25,6 +24,21 @@ knitr::opts_chunk$set(
 
 Allow sharing sensitive information, for example passwords, 'API' keys,
 etc., in R packages, using public key cryptography.
+
+## Disclaimer
+
+1. Although the package authors did what they could to make sure that
+   the package is secure and cryptographically sound, they are not
+   security experts.
+
+2. Memory areas for secrets, user passwords, passpharases, private keys and
+   other sensitive information, are not securely cleaned after use!
+   Technically, the local R process and other processes on the same
+   computer, may have access to them. Never use this package on a public
+   computer or any system that you don't trust. (Actually, never typing in
+   any password on a public computer is good security practice, in general.)
+
+3. Use this package at your own risk!
 
 ## Installation
 

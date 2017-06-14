@@ -1,4 +1,11 @@
-# secret: Share Sensitive Information in R Packages
+---
+title: "secret: Share Sensitive Information in R Packages"
+output: 
+  html_document: 
+    keep_md: yes
+    self_contained: yes
+    smart: no
+---
 
 
 
@@ -11,6 +18,21 @@
 
 Allow sharing sensitive information, for example passwords, 'API' keys,
 etc., in R packages, using public key cryptography.
+
+## Disclaimer
+
+1. Although the package authors did what they could to make sure that
+   the package is secure and cryptographically sound, they are not
+   security experts.
+
+2. Memory areas for secrets, user passwords, passpharases, private keys and
+   other sensitive information, are not securely cleaned after use!
+   Technically, the local R process and other processes on the same
+   computer, may have access to them. Never use this package on a public
+   computer or any system that you don't trust. (Actually, never typing in
+   any password on a public computer is good security practice, in general.)
+
+3. Use this package at your own risk!
 
 ## Installation
 
@@ -32,6 +54,14 @@ devtools::install_github("gaborcsardi/secret")
 ## Usage
 
 
+
+### Load the package:
+
+
+```r
+library(secret)
+```
+
 ### Set up your keys:
 
 Ensure you know the location of your public and private keys. In Linux this is usually the folder `~/.ssh`, so on Windows you may want to choose the same folder.
@@ -49,27 +79,17 @@ You can change this default by setting an environment variable `USER_KEY`:
 Sys.setenv(USER_KEY = "path/to/private/key")
 ```
 
-Test that the package can read your key:
+Test that the package can read your key. This might fail if you don't have a key at `~/.ssh/id_rsa`, or if your private key has a pass phrase and R in running in non-interactive mode.
 
 
 ```r
 library(secret)
-local_key()
+try(local_key(), silent = TRUE)
 ```
 
 ```
-# [1024-bit rsa private key]
-# md5: 7794640c6bebe1e52a28caf792ea2896
+# Please enter private key passphrase:
 ```
-
-
-### Load the package:
-
-
-```r
-library(secret)
-```
-
 
 ### Create a vault:
 
@@ -170,7 +190,7 @@ get_secret("secret_one", key = alice_private_key, vault = vault)
     ```
     
     ```
-    # [1] "C:\\Users\\adevries\\Documents\\.ssh"
+    # [1] "/Users/gaborcsardi/.ssh"
     ```
 
 
