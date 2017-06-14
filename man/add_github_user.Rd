@@ -12,7 +12,21 @@ add_github_user(github_user, email = NULL, vault = NULL, i = 1)
 \item{email}{Email address of the github user. If NULL, constructs an
 email as \code{github-<<github_user>>}}
 
-\item{vault}{Vault location. To create a vault, use \code{\link[=create_vault]{create_vault()}} or \code{\link[=create_package_vault]{create_package_vault()}}}
+\item{vault}{Vault location (starting point to find the vault).
+To create a vault, use \code{\link[=create_vault]{create_vault()}} or \code{\link[=create_package_vault]{create_package_vault()}}.
+If this is \code{NULL}, then \code{secret} tries to find the vault automatically:
+\itemize{
+\item If the \code{secret.vault} option is set to path, that is used as the
+starting point.
+\item Otherwise, if the \code{R_SECRET_VAULT} environment variable is set to a
+path, that is used as a starting point.
+\item Otherwise the current working directory is used as the starting
+point.
+}
+
+If the starting point is a vault, that is used. Otherwise, if the
+starting point is in a package tree, the \code{inst/vault} folder is used
+within the package. If no vault can be found, an error is thrown.}
 
 \item{i}{Integer, indicating which GitHub key to use (if more than one
 GitHub key exists).}

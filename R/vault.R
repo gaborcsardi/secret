@@ -91,14 +91,28 @@ is_vault <- function(vault) {
     dir.exists(file.path(vault, "secrets"))
 }
 
+#' @importFrom rprojroot find_package_root_file
+
 find_vault <- function(vault) {
-  # if vault is not null then
-  # 1. see if vault is a vault
-  # 2. check for a package vault
-  # 3. check if option is set, and if so, use the option -- NOT YET IMPLEMENTED
-  assert_that(is_valid_dir(vault))
-  if (is_vault(vault)) return(vault)
-  package_vault_directory(vault %||% ".")
+  if (is.null(vault)) {
+    vault <- getOption("secret.vault", NA_character_)
+    if (is.na(vault)) vault <- Sys.getenv("R_SECRET_VAULT", NA_character_)
+    if (is.na(vault)) vault <- "."
+  }
+
+  if (is_vault(vault)) {
+    vault
+  } else {
+    pkgroot <- tryCatch(
+      find_package_root_file(path = vault),
+      error = function(e) NA_character_
+    )
+    if (is.na(pkgroot)) {
+      "."
+    } else {
+      file.path(pkgroot, "inst", "vault")
+    }
+  }
 }
 
 #' Get the file of a user (email)

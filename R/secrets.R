@@ -1,3 +1,4 @@
+
 #' Add a new secret to the vault.
 #'
 #' By default, the newly added secret is not shared with other
@@ -11,7 +12,19 @@
 #'   will be serialized using [base::serialize()].
 #' @param users Email addresses of users that will have access to the
 #'   secret. (See [add_user()])
-#' @param vault Vault location. To create a vault, use [create_vault()] or [create_package_vault()]
+#' @param vault Vault location (starting point to find the vault).
+#'   To create a vault, use [create_vault()] or [create_package_vault()].
+#'   If this is `NULL`, then `secret` tries to find the vault automatically:
+#'   * If the `secret.vault` option is set to path, that is used as the
+#'     starting point.
+#'   * Otherwise, if the `R_SECRET_VAULT` environment variable is set to a
+#'     path, that is used as a starting point.
+#'   * Otherwise the current working directory is used as the starting
+#'     point.
+#'
+#'   If the starting point is a vault, that is used. Otherwise, if the
+#'   starting point is in a package tree, the `inst/vault` folder is used
+#'   within the package. If no vault can be found, an error is thrown.
 #'
 #' @family secret functions
 #' @export

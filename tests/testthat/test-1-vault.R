@@ -21,7 +21,6 @@ test_that("Can create a vault in a package", {
     file.path(tempdir(), "secret_test", "inst", "vault")
   )
   
-  
   expect_equal(
     list_users(pkg_root),
     character(0)
