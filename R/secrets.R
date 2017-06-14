@@ -37,14 +37,14 @@ add_secret <- function(name, value, users, vault = NULL) {
   vault <- find_vault(vault)
   assert_that(secret_does_not_exist(vault, name))
   assert_that(users_exist(vault, users))
-  
+
   ## Create an AES key for the secret, and store it
   key <- aes_keygen()
   store_secret_with_key(name, value, key, vault)
-  
+
   ## Share it with the specified users
   share_secret_with_key(name, users, aeskey = key, vault = vault)
-  
+
   invisible()
 }
 
@@ -63,16 +63,16 @@ add_secret <- function(name, value, users, vault = NULL) {
 get_secret <- function(name, key = local_key(), vault = NULL) {
   assert_that(is_valid_name(name))
   vault <- find_vault(vault)
-  
+
   secret_file <- get_secret_file(vault, name)
   if (! file.exists(secret_file)) {
     stop("secret ", sQuote(name), " does not exist")
   }
-  
+
   ## Try to decrypt all AES encryptions, to see if user has access
   aeskey <- try_get_aes_key(vault, name, key)
   if (is.null(aeskey)) stop("Access denied to secret ", sQuote(name))
-  
+
   secret <- unserialize(read_raw(secret_file))
   data <- aes_cbc_decrypt(secret, aeskey)
   unserialize(data)
@@ -90,7 +90,7 @@ get_secret <- function(name, key = local_key(), vault = NULL) {
 update_secret <- function(name, value, key = local_key(), vault = NULL) {
   assert_that(is_valid_name(name))
   vault <- find_vault(vault)
-  
+
   secret_file <- get_secret_file(vault, name)
   if (! file.exists(secret_file)) {
     stop("secret ", sQuote(name), " does not exist")
@@ -104,11 +104,11 @@ update_secret <- function(name, value, key = local_key(), vault = NULL) {
 
   ## Store the secret
   store_secret_with_key(name, value, aeskey, vault)
-  
+
   ## Give access to the same users
   users <- get_secret_user_emails(vault, name)
   share_secret_with_key(name, users, aeskey = aeskey, vault = vault)
-  
+
   invisible()
 }
 
@@ -123,20 +123,20 @@ update_secret <- function(name, value, key = local_key(), vault = NULL) {
 delete_secret <- function(name, vault = NULL) {
   assert_that(is_valid_name(name))
   vault <- find_vault(vault)
-  
+
   secret_file <- get_secret_file(vault, name)
   secret_dir <- dirname(secret_file)
   if (!file.exists(secret_dir)) {
     stop("Secret ", sQuote(name), " does not exist.")
   }
-  
+
   unlink(secret_dir, recursive = TRUE)
-  
+
   invisible()
 }
 
 #' List all secrets.
-#' 
+#'
 #' Returns a data frame with secrets and emails that these are shared with.
 #' The emails are in a list-column, each element of the `email` column is
 #' a character vector.
@@ -151,7 +151,12 @@ list_secrets <- function(vault = NULL) {
   assert_that(is_valid_dir(vault))
   vault <- find_vault(vault)
 
-  secrets <- list.files(file.path(vault, "secrets"), recursive = TRUE, full.names = FALSE, pattern = ".raw$")
+  secrets <- list.files(
+    file.path(vault, "secrets"),
+    recursive = TRUE,
+    full.names = FALSE,
+    pattern = ".raw$"
+  )
   secrets <- gsub(".raw$", "", dirname(secrets))
   secrets <- sort(secrets)
 
@@ -176,13 +181,13 @@ list_secrets <- function(vault = NULL) {
 #'
 #' @param key Private key that has access to the secret. (I.e. its
 #'   corresponding public key is among the vault users.)
-#' @param users addresses of users that will have access to the secret. 
-#' (See [add_user()]). If missing, returns the names of users with access to 
-#' this secret.
+#' @param users addresses of users that will have access to the secret.
+#'   (See [add_user()]). If missing, returns the names of users with access
+#'   to this secret.
 #' @inheritParams add_secret
 #'
 #' @seealso [unshare_secret()]
-#' 
+#'
 #' @family secret functions
 #' @export
 
@@ -197,11 +202,11 @@ share_secret <- function(name, users, key = local_key(), vault = NULL) {
   vault <- find_vault(vault)
   assert_that(secret_exists(vault, name))
   assert_that(users_exist(vault, users))
-  
+
   aeskey <- try_get_aes_key(vault, name, key)
   if (is.null(aeskey)) stop("Access denied to secret ", sQuote(name))
   share_secret_with_key(name, users, aeskey, vault)
-  
+
   invisible()
 }
 
@@ -215,7 +220,7 @@ share_secret <- function(name, users, key = local_key(), vault = NULL) {
 #' @inheritParams add_secret
 #'
 #' @seealso [share_secret()]
-#' 
+#'
 #' @family secret functions
 #' @export
 
@@ -225,12 +230,12 @@ unshare_secret <- function(name, users, vault = NULL) {
   vault <- find_vault(vault)
   assert_that(secret_exists(vault, name))
   assert_that(users_exist(vault, users))
-  
+
   files <- vapply(users, get_secret_user_file, "",
                   vault = vault, name = name)
   files <- Filter(file.exists, files)
   file.remove(files)
-  
+
   invisible()
 }
 
@@ -301,7 +306,7 @@ try_get_aes_key <- function(vault, name, key) {
     )
     if (!is.null(aes)) return(aes)
   }
-  
+
   NULL
 }
 
@@ -318,7 +323,7 @@ store_secret_with_key <- function(name, value, key, vault) {
   ## Encrypt the secret with it
   data <- serialize(value, NULL)
   enc <- aes_cbc_encrypt(data, key)
-  
+
   ## Write it out
   secret_file <- get_secret_file(vault, name)
   create_dir(dirname(secret_file))

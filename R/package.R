@@ -9,7 +9,7 @@
 #' users. Users are identified using their public keys.
 #'
 #' The package implements the following operations:
-#' 
+#'
 #' * Vault:
 #'   - Creating a vault folder: [create_vault()]
 #'   - Creating a package vault: [create_package_vault()]

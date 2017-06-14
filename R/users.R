@@ -33,7 +33,8 @@ add_user <- function(email, public_key, vault = NULL) {
 #' @importFrom curl new_handle handle_setheaders curl_fetch_memory
 
 get_github_key <- function(github_user, i = 1) {
-  url <- paste("https://api.github.com/users", github_user, "keys", sep = "/")
+  url <- paste("https://api.github.com/users", github_user, "keys",
+               sep = "/")
 
   ## Use GitHub token from GITHUB_PATH env var, if set
   pat <- Sys.getenv("GITHUB_PAT", "")
@@ -51,7 +52,7 @@ get_github_key <- function(github_user, i = 1) {
 }
 
 #' Add a user via their GitHub username.
-#' 
+#'
 #' On GitHub, a user can upload multiple keys. This function will download
 #' the first key by default, but you can change this
 #'
@@ -64,12 +65,12 @@ get_github_key <- function(github_user, i = 1) {
 #'
 #' @family user functions
 #' @export
-#' 
+#'
 #' @importFrom assertthat is.count
 #' @example inst/examples/example-github.R
 #' @seealso [add_travis_user()]
 
-add_github_user <- function(github_user, email = NULL, vault = NULL, 
+add_github_user <- function(github_user, email = NULL, vault = NULL,
                             i = 1) {
   assert_that(is.count(i))
   if (missing(email) || is.null(email)){
@@ -84,7 +85,8 @@ add_github_user <- function(github_user, email = NULL, vault = NULL,
 #' @importFrom  jsonlite fromJSON
 
 get_travis_key <- function(travis_repo){
-  url <- paste("https://api.travis-ci.org/repos", travis_repo, "key", sep = "/")
+  url <- paste("https://api.travis-ci.org/repos", travis_repo, "key",
+               sep = "/")
   r <- curl(url)
   k <- fromJSON(r)
   k <- k$key
@@ -93,11 +95,11 @@ get_travis_key <- function(travis_repo){
 
 
 #' Add a user via their Travis repo.
-#' 
-#' On Travis, every repo has a private/public key pair. This function adds a 
+#'
+#' On Travis, every repo has a private/public key pair. This function adds a
 #' user and downloads the public key from Travis.
-#' 
-#' @param travis_repo Name of Travis repository, usually in a format 
+#'
+#' @param travis_repo Name of Travis repository, usually in a format
 #' `<<username>>/<<repo>>`
 #' @inheritParams add_user
 #'
