@@ -128,18 +128,25 @@ add_travis_user <- function(travis_repo, email, vault = NULL) {
 delete_user <- function(email, vault = NULL) {
   assert_that(is_email_address(email))
   vault <- find_vault(vault)
+
   ## Check if user exists
   assert_that(is_valid_user(email, vault))
   user_file <- get_user_file(vault, email)
-  ## Get all secrets they have access to
-  secrets <- list_user_secrets(vault, email)
-  ## Remove everything in one go. This is still not atomic, of course...
-  file.remove(user_file, secrets)
+
+  ## Check for orphaned secrets
   secrets <- list_secrets(vault)
-  if(any(is.na(secrets$email))) {
-    warning("This operation left orphaned secrets behind.",
-            "Use list_secrets() and delete_secret() to remove orphans")
+  if (email %in% secrets$email) {
+    orp <- vapply(secrets$email, identical, logical(1), "bar")
+    warning(
+      "Deleting user ", sQuote(email), " will leave orphaned secrets: ",
+      paste(secrets$name[orp], collapse = ", ")
+    )
   }
+
+  ## Remove everything in one go. This is still not atomic, of course...
+  mysecrets <- list_user_secrets(vault, email)
+  file.remove(user_file, mysecrets)
+
   invisible()
 }
 

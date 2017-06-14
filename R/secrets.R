@@ -125,6 +125,8 @@ delete_secret <- function(name, vault = NULL) {
 #' List all secrets.
 #' 
 #' Returns a data frame with secrets and emails that these are shared with.
+#' The emails are in a list-column, each element of the `email` column is
+#' a character vector.
 #'
 #' @inheritParams add_secret
 #'
@@ -135,33 +137,23 @@ delete_secret <- function(name, vault = NULL) {
 list_secrets <- function(vault = NULL) {
   assert_that(is_valid_dir(vault))
   vault <- find_vault(vault)
-  # basename(list_all_secrets(vault))
-  # browser()
+
   secrets <- list.files(file.path(vault, "secrets"), recursive = TRUE, full.names = FALSE, pattern = ".raw$")
   secrets <- gsub(".raw$", "", dirname(secrets))
-  
-  users <- list.files(vault, recursive = TRUE, full.names = TRUE, pattern = ".enc")
-  users <- gsub(".*?/secrets/", "", users)
-  users <- gsub("\\.enc$", "", users)
-  
-  orphans <- setdiff(secrets, dirname(users))
-  
-  z <- data.frame(
-    secret = dirname(users),
-    email  = basename(users),
+  secrets <- sort(secrets)
+
+  users <- lapply(
+    file.path(vault, "secrets", secrets),
+    dir,
+    pattern = "\\.enc$"
+  )
+  users <- lapply(users, sub, pattern = "\\.enc$", replacement = "")
+
+  data.frame(
+    secret = secrets,
+    email  = I(users),
     stringsAsFactors = FALSE
   )
-  if(length(orphans > 0)){
-    z <- rbind(z, 
-               data.frame(
-                 secret = orphans,
-                 email = NA_character_,
-                 stringsAsFactors = FALSE
-               ))
-  }
-  z[order(z$secret), ]
-  
-  
 }
 
 #' Share a secret among some users.

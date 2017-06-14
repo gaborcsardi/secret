@@ -5,12 +5,14 @@ create_package_vault(pkg_root)
 ({
   alice <- "alice"
   bob   <- "bob"
+  carl  <- "carl"
   user_keys_dir <- file.path(system.file(package = "secret"), "user_keys")
   key <- function(x)file.path(user_keys_dir, x)
   alice_public_key  <- key("alice.pub")
   alice_private_key <- key("alice.pem")
   bob_public_key    <- key("bob.pub")
   bob_private_key   <- key("bob.pem")
+  carl_public_key   <- key("carl.pub")
   carl_private_key   <- key("carl.pem")
 })
 
@@ -19,7 +21,6 @@ as_dataframe <- function(...)data.frame(..., stringsAsFactors = FALSE)
 context("secrets")
 
 secret_to_keep <- list(a = 1, b = letters)
-
 
 test_that("can add secrets", {
   
@@ -36,7 +37,7 @@ test_that("can add secrets", {
   
   expect_equal(
     list_secrets(pkg_root),
-    as_dataframe(secret = "secret_one", email = "alice")
+    as_dataframe(secret = "secret_one", email = I(list("alice")))
   )
 })
 
@@ -80,8 +81,8 @@ test_that("add second secret shared by multiple users", {
   expect_equal(
     list_secrets(pkg_root),
     as_dataframe(
-      secret = c("secret_one", "secret_two", "secret_two"), 
-      email = c("alice", "alice", "bob")
+      secret = c("secret_one", "secret_two"),
+      email = I(list("alice", c("alice", "bob")))
     )
   )
   expect_error(
@@ -111,11 +112,11 @@ test_that("add second secret shared by multiple users", {
   # delete user and try to access secret
   expect_warning(
     delete_user(alice, vault = pkg_root),
-    "This operation left orphaned secrets behind."
+    "will leave orphaned secrets"
   )
   
   expect_true(
-    any(is.na(list_secrets(vault = pkg_root)$email))
+    any(vapply(list_secrets(vault = pkg_root)$email, length, integer(1)) == 0)
   )
   delete_secret("secret_one", vault = pkg_root)
   
@@ -140,7 +141,7 @@ test_that("add second secret shared by multiple users", {
     list_secrets(pkg_root),
     as_dataframe(
       secret = character(0), 
-      email = character(0)
+      email = I(list())
     )
   )
   expect_equal(
@@ -161,7 +162,7 @@ test_that("use share_secret() to share between alice and bob", {
     list_secrets(pkg_root),
     as_dataframe(
       secret = "secret_3",
-      email = "alice"
+      email = I(list("alice"))
     )
   )
   
@@ -185,8 +186,8 @@ test_that("use share_secret() to share between alice and bob", {
   expect_equal(
     list_secrets(pkg_root),
     as_dataframe(
-      secret = c("secret_3", "secret_3"),
-      email = c("alice", "bob")
+      secret = "secret_3",
+      email = I(list(c("alice", "bob")))
     )
   )
   expect_equal(
@@ -223,7 +224,7 @@ test_that("udpate a secret", {
     list_secrets(pkg_root),
     as_dataframe(
       secret = c("secret_3"),
-      email = c("alice")
+      email = I(list("alice"))
     )
   )
   

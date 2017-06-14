@@ -14,6 +14,8 @@ data.frame
 }
 \description{
 Returns a data frame with secrets and emails that these are shared with.
+The emails are in a list-column, each element of the \code{email} column is
+a character vector.
 }
 \seealso{
 Other secret functions: \code{\link{add_secret}},

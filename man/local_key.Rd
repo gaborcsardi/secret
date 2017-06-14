@@ -2,25 +2,26 @@
 % Please edit documentation in R/keys.R
 \name{local_key}
 \alias{local_key}
-\title{Reads local secret key.}
+\title{Read local secret key.}
 \usage{
 local_key()
 }
 \description{
-Reads a local secret key from disk. The location of this file is specified in the environment variable called \code{USER_KEY} (See details).  If this environment variable does not exist, then attempts to read the key at:
+Reads a local secret key from disk. The location of this file can be
+specified in the \code{USER_KEY} environment variable.
+If this environment variable does not exist, then attempts to read the
+key from:
 \itemize{
-\item \code{~/.ssh/id_rsa}
+\item \code{~/.ssh/id_rsa}, and
 \item \code{~/.ssh/id_rsa.pem}.
 }
 }
 \details{
-The location of the key is defined by:
+The location of the key is defined by:\preformatted{Sys.getenv("USER_KEY")
+}
 
-\code{Sys.getenv("USER_KEY")}
-
-To use a local in a different location, set an environment variable:
-
-\code{Sys.setenv(USER_KEY = "path/to/private/key")}
+To use a local in a different location, set an environment variable:\preformatted{Sys.setenv(USER_KEY = "path/to/private/key")
+}
 }
 \seealso{
 Other secret functions: \code{\link{add_secret}},
