@@ -39,7 +39,7 @@
 #' @seealso [add_user()], [add_secret()]
 
 create_package_vault <- function(path = ".") {
-  vault <- package_vault_directory(path, create = TRUE)
+  vault <- package_vault_directory(path)
   if (file.exists(vault)) {
     message("Package vault already exists in ", sQuote(vault))
   } else {
@@ -70,7 +70,7 @@ create_vault <- function(path) {
 
 # Internals -------------------------------------------------------------
 
-package_vault_directory <- function(path, create = FALSE) {
+package_vault_directory <- function(path) {
   assert_that(is_valid_dir(path))
   root <- tryCatch(
     find_package_root_file(path = path),
@@ -79,13 +79,7 @@ package_vault_directory <- function(path, create = FALSE) {
   if (inherits(root, "error")) {
     stop("No package or package vault found", call. = FALSE)
   }
-  if (create) {
-    return(normalizePath(file.path(root, "inst", "vault"),
-                         mustWork = FALSE))
-  }
-  v <- file.path(root, "vault")
-  v <- if (dir.exists(v)) v else file.path(root, "inst", "vault")
-  normalizePath(v, mustWork = FALSE)
+  normalizePath(file.path(root, "inst", "vault"), mustWork = FALSE)
 }
 
 is_vault <- function(vault) {
@@ -163,12 +157,4 @@ list_user_secrets <- function(vault, email) {
   z <- list.files(vault, pattern = paste0("^", email, ".enc"),
                   full.names = TRUE, recursive = TRUE)
   normalizePath(z, winslash = "/")
-}
-
-list_all_secrets <- function(vault) {
-  secrets <- normalizePath(
-    dir(file.path(vault, "secrets"), full.names = TRUE),
-    winslash = "/"
-  )
-  Filter(is_dir, secrets)
 }
