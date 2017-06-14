@@ -83,3 +83,38 @@ test_that("can add github user",{
     file.exists(exp_file)
   )
 })
+
+test_that("can add github user with PAT",{
+
+  tryCatch(
+    delete_user("github-gaborcsardi", vault = pkg_root),
+    error = function(e) e
+  )
+
+  mockery::stub(
+    add_github_user, "get_github_key", function(github_user, i = 1) {
+      mockery::stub(
+        get_github_key,
+        "curl_fetch_memory",
+        list(content = charToRaw(github_key))
+      )
+      get_github_key(github_user, i)
+    }
+  )
+
+  withr::with_envvar(
+    c("GITHUB_PAT" = "dummy-pat"),
+    expect_equal(
+      basename(
+        add_github_user("gaborcsardi", vault = pkg_root)
+      ),
+      "github-gaborcsardi.pem"
+    )
+  )
+  exp_file <- file.path(
+    pkg_root, "inst", "vault", "users", "github-gaborcsardi.pem"
+  )
+  expect_true(
+    file.exists(exp_file)
+  )
+})

@@ -42,3 +42,15 @@ test_that("can add and delete users", {
     character(0)
   )
 })
+
+test_that("error messages", {
+  unlink(pkg_root, recursive = TRUE)
+  pkg_root <- make_pkg_root()
+  create_package_vault(pkg_root)
+  add_user(alice, alice_public_key, vault = pkg_root)
+
+  expect_error(
+    add_user(alice, alice_public_key, vault = pkg_root),
+    paste0("User .*", alice, ".* already exists in this vault")
+  )
+})

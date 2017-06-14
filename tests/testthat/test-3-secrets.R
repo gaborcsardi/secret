@@ -170,7 +170,12 @@ test_that("use share_secret() to share between alice and bob", {
     share_secret("secret_3", users = c(alice, bob), 
                  key = alice_private_key, vault = pkg_root)
   )
-  
+
+  expect_equal(
+    list_owners("secret_3", vault = pkg_root),
+    c(alice, bob)
+  )
+
   expect_equal(
     # alice can decrypt with private key
     get_secret("secret_3", key = alice_private_key, vault = pkg_root),
@@ -228,4 +233,26 @@ test_that("udpate a secret", {
     )
   )
   
+})
+
+test_that("error messages", {
+  unlink(pkg_root, recursive = TRUE)
+  pkg_root <- make_pkg_root()
+  create_package_vault(pkg_root)
+  add_user(alice, alice_public_key, vault = pkg_root)
+
+  expect_error(
+    get_secret("blah", key = alice_private_key, vault = pkg_root),
+    "[sS]ecret .*blah.* does not exist"
+  )
+
+  expect_error(
+    update_secret("blah", "v", key = alice_private_key, vault = pkg_root),
+    "[sS]ecret .*blah.* does not exist"
+  )
+
+  expect_error(
+    delete_secret("blah", vault = pkg_root),
+    "[sS]ecret .*blah.* does not exist"
+  )
 })

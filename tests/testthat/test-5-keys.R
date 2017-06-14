@@ -33,3 +33,38 @@ test_that("can read local key when setting env variable", {
     )
   )
 })
+
+test_that("local key paths are used", {
+
+  mockery::stub(local_key, "file.exists", function(...) {
+    as.list(...) == "~/.ssh/id_rsa"
+  })
+  mockery::stub(local_key, "read_key", function(file, password, der) {
+    file
+  })
+
+  withr::with_envvar(
+    c(USER_KEY = NA_character_),
+    expect_equal(local_key(), "~/.ssh/id_rsa")
+  )
+
+  mockery::stub(local_key, "file.exists", function(...) {
+    as.list(...) == "~/.ssh/id_rsa.pem"
+  })
+  mockery::stub(local_key, "read_key", function(file, password, der) {
+    file
+  })
+
+  withr::with_envvar(
+    c(USER_KEY = NA_character_),
+    expect_equal(local_key(), "~/.ssh/id_rsa.pem")
+  )
+
+  mockery::stub(local_key, "file.exists", function(...) {
+    rep(FALSE, length(list(...)))
+  })
+  withr::with_envvar(
+    c(USER_KEY = NA_character_),
+    expect_error(local_key(), "No suitable user key found")
+  )
+})
