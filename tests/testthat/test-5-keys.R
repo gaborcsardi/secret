@@ -6,7 +6,7 @@ test_that("can read local key", {
   mockery::stub(local_key, "Sys.getenv", "sdfqrtafgaetsgsfgqr")
   expect_error(
     local_key(),
-    "(No such file or directory|cannot find the file)"
+    "(No such file or directory|cannot find the)"
   )
 
   pth <- system.file("user_keys/alice.pem", package = "secret")
@@ -29,7 +29,7 @@ test_that("can read local key when setting env variable", {
     c(USER_KEY = "path/does/not/exist"),
     expect_error(
       local_key(),
-      "(No such file or directory|cannot find the file)"
+      "(No such file or directory|cannot find the)"
     )
   )
 })
