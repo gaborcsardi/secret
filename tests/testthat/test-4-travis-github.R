@@ -70,12 +70,16 @@ test_that("can add github user",{
     }
   )
 
-  expect_equal(
-    basename(
-      add_github_user("gaborcsardi", vault = pkg_root)
-    ),
-    "github-gaborcsardi.pem"
+  withr::with_envvar(
+    c(GITHUB_PAT = NA_character_),
+    expect_equal(
+      basename(
+        add_github_user("gaborcsardi", vault = pkg_root)
+      ),
+      "github-gaborcsardi.pem"
+    )
   )
+
   exp_file <- file.path(
     pkg_root, "inst", "vault", "users", "github-gaborcsardi.pem"
   )
