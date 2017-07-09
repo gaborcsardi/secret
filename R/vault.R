@@ -135,6 +135,7 @@ get_secret_file <- function(vault, name) {
 }
 
 get_secret_user_file <- function(vault, name, email) {
+  if (is.null(email)) return(NULL)
   file.path(vault, "secrets", name, paste0(email, ".enc"))
 }
 
@@ -144,6 +145,11 @@ get_secret_user_files <- function(vault, name) {
     pattern = "\\.enc$",
     full.names = TRUE
   )
+}
+
+get_secret_user_file_for_key <- function(vault, name, key) {
+  email <- lookup_user(key = key, vault = vault)
+  get_secret_user_file(vault, name, email)
 }
 
 get_secret_user_emails <- function(vault, name) {
