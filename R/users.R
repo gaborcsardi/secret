@@ -184,17 +184,19 @@ on_failure(users_exist) <- function(call, env) {
 
 lookup_user <- function(key, vault) {
   if (is.character(key)) {
-    key <- tryCatch(read_key(key),
-                    error = function(e) NULL)
+    key <- tryCatch(
+      read_key(key),
+      error = function(e) NULL
+    )
     if (is.null(key)) return(NULL)
   }
   fp <- fingerprint(key)
-  for (pubkey in dir(file.path(vault, "users"), pattern='\\.pem$')) {
-    pubkeyfile = file.path(vault, 'users', pubkey)
+  for (pubkey in dir(file.path(vault, "users"), pattern="\\.pem$")) {
+    pubkeyfile <- file.path(vault, "users", pubkey)
     if (as.character(fp) == as.character(fingerprint(read_pubkey(pubkeyfile)))) {
       user <- sub("\\.pem$", "", pubkey)
       return(user)
     }
   }
-  return(NULL)
+  NULL
 }
