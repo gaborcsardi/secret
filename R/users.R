@@ -182,9 +182,7 @@ on_failure(users_exist) <- function(call, env) {
 
 #' @importFrom openssl fingerprint read_pubkey
 
-lookup_user <- function(key, vault = NULL) {
-  user <- NULL
-  vault <- find_vault(vault)
+lookup_user <- function(key, vault) {
   if (is.character(key)) {
     key <- tryCatch(read_key(key),
                     error = function(e) NULL)
@@ -195,7 +193,8 @@ lookup_user <- function(key, vault = NULL) {
     pubkeyfile = file.path(vault, 'users', pubkey)
     if (as.character(fp) == as.character(fingerprint(read_pubkey(pubkeyfile)))) {
       user <- sub("\\.pem$", "", pubkey)
+      return(user)
     }
   }
-  return(user)
+  return(NULL)
 }

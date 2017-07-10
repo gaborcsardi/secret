@@ -135,7 +135,6 @@ get_secret_file <- function(vault, name) {
 }
 
 get_secret_user_file <- function(vault, name, email) {
-  if (is.null(email)) return(NULL)
   file.path(vault, "secrets", name, paste0(email, ".enc"))
 }
 
