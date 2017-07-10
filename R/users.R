@@ -76,7 +76,7 @@ add_github_user <- function(github_user, email = NULL, vault = NULL,
   if (missing(email) || is.null(email)){
     email <- paste0("github-", github_user)
   }
-  key <- get_github_key(github_user)
+  key <- get_github_key(github_user, i = i)
   add_user(email = email, public_key = key, vault = vault)
 }
 
