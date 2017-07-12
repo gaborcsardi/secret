@@ -191,7 +191,7 @@ lookup_user <- function(key, vault) {
     if (is.null(key)) return(NULL)
   }
   fp <- fingerprint(key)
-  for (pubkey in dir(file.path(vault, "users"), pattern="\\.pem$")) {
+  for (pubkey in dir(file.path(vault, "users"), pattern = "\\.pem$")) {
     pubkeyfile <- file.path(vault, "users", pubkey)
     if (as.character(fp) == as.character(fingerprint(read_pubkey(pubkeyfile)))) {
       user <- sub("\\.pem$", "", pubkey)
