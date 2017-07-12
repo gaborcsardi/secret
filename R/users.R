@@ -179,3 +179,24 @@ users_exist <- function(vault, users) {
 on_failure(users_exist) <- function(call, env) {
   paste0("Secret ", deparse(call$users), " do not exist")
 }
+
+#' @importFrom openssl fingerprint read_pubkey
+
+lookup_user <- function(key, vault) {
+  if (is.character(key)) {
+    key <- tryCatch(
+      read_key(key),
+      error = function(e) NULL
+    )
+    if (is.null(key)) return(NULL)
+  }
+  fp <- fingerprint(key)
+  for (pubkey in dir(file.path(vault, "users"), pattern = "\\.pem$")) {
+    pubkeyfile <- file.path(vault, "users", pubkey)
+    if (as.character(fp) == as.character(fingerprint(read_pubkey(pubkeyfile)))) {
+      user <- sub("\\.pem$", "", pubkey)
+      return(user)
+    }
+  }
+  NULL
+}

@@ -306,16 +306,13 @@ share_secret_with_key1 <- function(name, email, aeskey, vault) {
 #' @keywords internal
 
 try_get_aes_key <- function(vault, name, key) {
-  files <- get_secret_user_files(vault, name)
-  for (f in files) {
-    aes <- tryCatch(
-      unserialize(rsa_decrypt(read_raw(f), key = key)),
-      error = function(e) NULL
-    )
-    if (!is.null(aes)) return(aes)
-  }
-
-  NULL
+  file <- get_secret_user_file_for_key(vault, name, key)
+  if (is.null(file) || !file.exists(file)) return(NULL)
+  
+  tryCatch(
+    unserialize(rsa_decrypt(read_raw(file), key = key)),
+    error = function(e) NULL
+  )
 }
 
 #' Store a secret, encrypted with its AES key.
