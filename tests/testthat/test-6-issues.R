@@ -84,6 +84,8 @@ test_that("missing vault arguments", {
     )
   }
 
+  old.o <- options(secret.vault = getOption("secret.vault", pkg_root))
+
   expect_equal(
     list_secrets(pkg_root),
     list_secrets() # Note the missing location argument
@@ -93,5 +95,6 @@ test_that("missing vault arguments", {
     list_users() # Note the missing location argument
     )
 
+  options(old.o)
 
   })
