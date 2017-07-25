@@ -69,3 +69,41 @@ test_that("update a secret, deleted user has no access", {
     "OpenSSL error"
   )
 })
+
+test_that("missing vault arguments", {
+  if (!(alice %in% list_users(pkg_root))){
+    add_user(alice, alice_public_key, vault = pkg_root)
+  }
+
+  if (!("secret_one" %in% list_secrets(pkg_root)$secret)){
+    add_secret(
+      "secret_one",
+      secret_to_keep,
+      users = c(alice, bob),
+      vault = pkg_root
+    )
+  }
+
+  withr::with_envvar(c("R_SECRET_VAULT" = pkg_root),{
+  expect_equal(
+    list_secrets(pkg_root),
+    list_secrets() # Note the missing location argument
+    )
+  expect_equal(
+    list_users(pkg_root),
+    list_users() # Note the missing location argument
+    )
+  })
+
+  withr::with_options(c("secret.vault" = pkg_root),{
+  expect_equal(
+    list_secrets(pkg_root),
+    list_secrets() # Note the missing location argument
+    )
+  expect_equal(
+    list_users(pkg_root),
+    list_users() # Note the missing location argument
+    )
+  })
+
+  })

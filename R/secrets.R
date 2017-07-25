@@ -148,8 +148,8 @@ delete_secret <- function(name, vault = NULL) {
 #' @export
 
 list_secrets <- function(vault = NULL) {
-  assert_that(is_valid_dir(vault))
   vault <- find_vault(vault)
+  assert_that(is_valid_dir(vault))
 
   secrets <- list.files(
     file.path(vault, "secrets"),
