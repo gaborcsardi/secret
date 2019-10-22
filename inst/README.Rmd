@@ -22,7 +22,7 @@ etc., in R packages, using public key cryptography.
    the package is secure and cryptographically sound, they are not
    security experts.
 
-2. Memory areas for secrets, user passwords, passpharases, private keys and
+2. Memory areas for secrets, user passwords, passphrases, private keys and
    other sensitive information, are not securely cleaned after use!
    Technically, the local R process and other processes on the same
    computer, may have access to them. Never use this package on a public
