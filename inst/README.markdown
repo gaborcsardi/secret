@@ -27,20 +27,11 @@ etc., in R packages, using public key cryptography.
 
 ## Installation
 
-Install the package using the `install-github.me` service:
+Install the package from CRAN:
 
-
-```r
-source("https://install-github.me/gaborcsardi/secret")
+```{r, eval = FALSE}
+install.packages("secret")
 ```
-    
-Or using `devtools`:
-
-
-```r
-devtools::install_github("gaborcsardi/secret")
-```
-
 
 ## Usage
 

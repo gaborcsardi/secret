@@ -33,19 +33,12 @@ etc., in R packages, using public key cryptography.
 
 ## Installation
 
-Install the package using the `install-github.me` service:
+Install the package from CRAN:
 
 ```{r, eval = FALSE}
-source("https://install-github.me/gaborcsardi/secret")
+install.packages("secret")
 ```
     
-Or using `devtools`:
-
-```{r, eval = FALSE}
-devtools::install_github("gaborcsardi/secret")
-```
-
-
 ## Usage
 
 ```{r, child="vignette_child/child.Rmd"}
