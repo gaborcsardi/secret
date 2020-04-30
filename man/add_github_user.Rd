@@ -10,7 +10,7 @@ add_github_user(github_user, email = NULL, vault = NULL, i = 1)
 \item{github_user}{User name on GitHub.}
 
 \item{email}{Email address of the github user. If NULL, constructs an
-email as \code{github-<<github_user>>}}
+email as \verb{github-<<github_user>>}}
 
 \item{vault}{Vault location (starting point to find the vault).
 To create a vault, use \code{\link[=create_vault]{create_vault()}} or \code{\link[=create_package_vault]{create_package_vault()}}.
@@ -46,7 +46,10 @@ delete_user("github-hadley", vault = vault)
 \seealso{
 \code{\link[=add_travis_user]{add_travis_user()}}
 
-Other user functions: \code{\link{add_travis_user}},
-  \code{\link{add_user}}, \code{\link{delete_user}},
-  \code{\link{list_users}}
+Other user functions: 
+\code{\link{add_travis_user}()},
+\code{\link{add_user}()},
+\code{\link{delete_user}()},
+\code{\link{list_users}()}
 }
+\concept{user functions}

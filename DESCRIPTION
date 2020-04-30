@@ -1,6 +1,6 @@
 Package: secret
 Title: Share Sensitive Information in R Packages
-Version: 1.0.0.9000
+Version: 1.0.0.9001
 Authors@R: c(person("Gábor", "Csárdi", role=c("aut", "cre"), 
              email="csardi.gabor@gmail.com"),
     person("Andrie", "de Vries", role=c("aut"), 
@@ -11,7 +11,7 @@ License: MIT + file LICENSE
 LazyData: true
 URL: https://github.com/gaborcsardi/secret#readme
 BugReports: https://github.com/gaborcsardi/secret/issues
-RoxygenNote: 6.0.1.9000
+RoxygenNote: 7.1.0
 Roxygen: list(markdown = TRUE)
 Imports:
     assertthat,

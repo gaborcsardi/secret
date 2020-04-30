@@ -27,7 +27,10 @@ within the package. If no vault can be found, an error is thrown.}
 List users
 }
 \seealso{
-Other user functions: \code{\link{add_github_user}},
-  \code{\link{add_travis_user}}, \code{\link{add_user}},
-  \code{\link{delete_user}}
+Other user functions: 
+\code{\link{add_github_user}()},
+\code{\link{add_travis_user}()},
+\code{\link{add_user}()},
+\code{\link{delete_user}()}
 }
+\concept{user functions}

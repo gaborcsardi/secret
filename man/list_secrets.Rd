@@ -32,9 +32,14 @@ The emails are in a list-column, each element of the \code{email} column is
 a character vector.
 }
 \seealso{
-Other secret functions: \code{\link{add_secret}},
-  \code{\link{delete_secret}}, \code{\link{get_secret}},
-  \code{\link{list_owners}}, \code{\link{local_key}},
-  \code{\link{share_secret}}, \code{\link{unshare_secret}},
-  \code{\link{update_secret}}
+Other secret functions: 
+\code{\link{add_secret}()},
+\code{\link{delete_secret}()},
+\code{\link{get_secret}()},
+\code{\link{list_owners}()},
+\code{\link{local_key}()},
+\code{\link{share_secret}()},
+\code{\link{unshare_secret}()},
+\code{\link{update_secret}()}
 }
+\concept{secret functions}

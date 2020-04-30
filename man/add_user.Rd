@@ -105,7 +105,10 @@ delete_user("bob", vault = vault)
 list_users(vault)
 }
 \seealso{
-Other user functions: \code{\link{add_github_user}},
-  \code{\link{add_travis_user}}, \code{\link{delete_user}},
-  \code{\link{list_users}}
+Other user functions: 
+\code{\link{add_github_user}()},
+\code{\link{add_travis_user}()},
+\code{\link{delete_user}()},
+\code{\link{list_users}()}
 }
+\concept{user functions}

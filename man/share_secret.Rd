@@ -40,9 +40,14 @@ secret. The calling user must have access to the secret as well.
 \code{\link[=unshare_secret]{unshare_secret()}}, \code{\link[=list_owners]{list_owners()}} to list users that have
 access to a secret.
 
-Other secret functions: \code{\link{add_secret}},
-  \code{\link{delete_secret}}, \code{\link{get_secret}},
-  \code{\link{list_owners}}, \code{\link{list_secrets}},
-  \code{\link{local_key}}, \code{\link{unshare_secret}},
-  \code{\link{update_secret}}
+Other secret functions: 
+\code{\link{add_secret}()},
+\code{\link{delete_secret}()},
+\code{\link{get_secret}()},
+\code{\link{list_owners}()},
+\code{\link{list_secrets}()},
+\code{\link{local_key}()},
+\code{\link{unshare_secret}()},
+\code{\link{update_secret}()}
 }
+\concept{secret functions}

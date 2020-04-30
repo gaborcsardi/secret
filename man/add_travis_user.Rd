@@ -8,7 +8,7 @@ add_travis_user(travis_repo, email, vault = NULL)
 }
 \arguments{
 \item{travis_repo}{Name of Travis repository, usually in a format
-\code{<<username>>/<<repo>>}}
+\verb{<<username>>/<<repo>>}}
 
 \item{email}{Email address of the user. This is used to identify
 users.}
@@ -42,7 +42,10 @@ list_users(vault = vault)
 delete_user("travis-gaborcsardi-secret", vault = vault)
 }
 \seealso{
-Other user functions: \code{\link{add_github_user}},
-  \code{\link{add_user}}, \code{\link{delete_user}},
-  \code{\link{list_users}}
+Other user functions: 
+\code{\link{add_github_user}()},
+\code{\link{add_user}()},
+\code{\link{delete_user}()},
+\code{\link{list_users}()}
 }
+\concept{user functions}

@@ -30,7 +30,10 @@ It also removes access of the user to all secrets, so if the user
 is re-added again, they will not have access to any secrets.
 }
 \seealso{
-Other user functions: \code{\link{add_github_user}},
-  \code{\link{add_travis_user}}, \code{\link{add_user}},
-  \code{\link{list_users}}
+Other user functions: 
+\code{\link{add_github_user}()},
+\code{\link{add_travis_user}()},
+\code{\link{add_user}()},
+\code{\link{list_users}()}
 }
+\concept{user functions}

@@ -12,8 +12,8 @@ specified in the \code{USER_KEY} environment variable.
 If this environment variable does not exist, then attempts to read the
 key from:
 \itemize{
-\item \code{~/.ssh/id_rsa}, and
-\item \code{~/.ssh/id_rsa.pem}.
+\item \verb{~/.ssh/id_rsa}, and
+\item \verb{~/.ssh/id_rsa.pem}.
 }
 }
 \details{
@@ -24,9 +24,14 @@ To use a local in a different location, set an environment variable:\preformatte
 }
 }
 \seealso{
-Other secret functions: \code{\link{add_secret}},
-  \code{\link{delete_secret}}, \code{\link{get_secret}},
-  \code{\link{list_owners}}, \code{\link{list_secrets}},
-  \code{\link{share_secret}}, \code{\link{unshare_secret}},
-  \code{\link{update_secret}}
+Other secret functions: 
+\code{\link{add_secret}()},
+\code{\link{delete_secret}()},
+\code{\link{get_secret}()},
+\code{\link{list_owners}()},
+\code{\link{list_secrets}()},
+\code{\link{share_secret}()},
+\code{\link{unshare_secret}()},
+\code{\link{update_secret}()}
 }
+\concept{secret functions}
