@@ -1,19 +1,15 @@
 language: r
-dist: trusty
 sudo: false
 cache: packages
 
 r:
- - release
- - devel
- - oldrel
-
-addons:
-  apt:
-    packages:
-      - libsecret-1-dev
-
-r_binary_packages: withr
+- 3.2
+- 3.3
+- 3.4
+- 3.5
+- oldrel
+- release
+- devel
 
 after_success:
   - test $TRAVIS_R_VERSION_STRING = "release" && Rscript -e 'withr::with_envvar(c(NOT_CRAN="true"), {covr::codecov()})'
