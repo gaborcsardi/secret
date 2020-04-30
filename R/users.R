@@ -81,13 +81,15 @@ add_github_user <- function(github_user, email = NULL, vault = NULL,
 }
 
 
-#' @importFrom curl curl
+#' @importFrom curl curl new_handle handle_setheaders
 #' @importFrom  jsonlite fromJSON
 
-get_travis_key <- function(travis_repo){
-  url <- paste("https://api.travis-ci.org/repos", travis_repo, "key",
+get_travis_key <- function(travis_repo) {
+  url <- paste("https://api.travis-ci.com/repos", travis_repo, "key",
                sep = "/")
-  r <- curl(url)
+  handle <- new_handle()
+  handle_setheaders(handle, Accept = "application/vnd.travis-ci.2.1+json")
+  r <- curl(url, handle = handle)
   k <- fromJSON(r)
   k <- k$key
   gsub(" RSA", "", k)
