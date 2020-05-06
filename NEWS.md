@@ -1,5 +1,5 @@
 
-# dev
+# 1.1.0
 
 * New functions `get_github_key()` and `get_travis_key()` to retrieve
   public keys from GitHub and Travis (#23).
