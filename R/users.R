@@ -30,7 +30,15 @@ add_user <- function(email, public_key, vault = NULL) {
   write_pem(key, path = user_file)
 }
 
+#' Get the SSH public key of a GitHub user
+#'
+#' @param github_user GitHub username.
+#' @param i Which key to get, in case the user has multiple keys.
+#'   `get_github_key()` retrieves the first key by default.
+#' @return Character scalar.
+#'
 #' @importFrom curl new_handle handle_setheaders curl_fetch_memory
+#' @export
 
 get_github_key <- function(github_user, i = 1) {
   url <- paste("https://api.github.com/users", github_user, "keys",
@@ -80,7 +88,13 @@ add_github_user <- function(github_user, email = NULL, vault = NULL,
   add_user(email = email, public_key = key, vault = vault)
 }
 
-
+#' Retrieve the public key of a Travis CI repository
+#'
+#' @param travis_repo The repository slug, e.g. `gaborcsardi/secret`.
+#' @return Character scalar, the key. If the repository does not exist,
+#' or it is not user in Travis CI, an HTTP 404 error is thrown.
+#'
+#' @export
 #' @importFrom curl curl new_handle handle_setheaders
 #' @importFrom  jsonlite fromJSON
 
