@@ -1,4 +1,5 @@
 
+\dontrun{
 # The `secret` package contains some user keys for demonstration purposes.
 # In this example, Alice shares a secret with Bob using a vault.
 
@@ -62,3 +63,5 @@ list_secrets(vault)
 delete_user("alice", vault = vault)
 delete_user("bob", vault = vault)
 list_users(vault)
+
+}

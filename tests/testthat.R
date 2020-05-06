@@ -1,4 +1,6 @@
 library(testthat)
 library(secret)
 
-test_check("secret")
+if (Sys.getenv("NOT_CRAN", "") != "") {
+  test_check("secret")
+}

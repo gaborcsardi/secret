@@ -36,12 +36,14 @@ On GitHub, a user can upload multiple keys. This function will download
 the first key by default, but you can change this
 }
 \examples{
+\dontrun{
 vault <- file.path(tempdir(), ".vault")
 create_vault(vault)
 
 add_github_user("hadley", vault = vault)
 list_users(vault = vault)
 delete_user("github-hadley", vault = vault)
+}
 }
 \seealso{
 \code{\link[=add_travis_user]{add_travis_user()}}
