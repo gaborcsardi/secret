@@ -206,13 +206,32 @@ lookup_user <- function(key, vault) {
     )
     if (is.null(key)) return(NULL)
   }
-  fp <- fingerprint(key)
-  for (pubkey in dir(file.path(vault, "users"), pattern = "\\.pem$")) {
+  
+  fp      <- fingerprint(key)
+  pubkeys <- dir(file.path(vault, "users"), pattern = "\\.pem$")
+  
+  res <- vapply(pubkeys, function(pubkey){
     pubkeyfile <- file.path(vault, "users", pubkey)
     if (as.character(fp) == as.character(fingerprint(read_pubkey(pubkeyfile)))) {
-      user <- sub("\\.pem$", "", pubkey)
-      return(user)
+      sub("\\.pem$", "", pubkey)
+    } else {
+      NA_character_
     }
+  }, 
+    character(1), USE.NAMES = FALSE
+  )
+  
+  res <- res[!is.na(res)]
+  
+  if (length(res)){
+    if (length(res) > 1){
+      warning(
+        "Detected multiple users with the same fingerprint, ignoring all but the first: ",
+        paste(res, collapse = ", ")
+      )
+    }
+    res[[1]]
+  } else {
+    NULL
   }
-  NULL
 }

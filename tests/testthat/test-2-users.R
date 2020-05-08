@@ -54,3 +54,19 @@ test_that("error messages", {
     paste0("User .*", alice, ".* already exists in this vault")
   )
 })
+
+test_that("lookup_user() warns on duplicated user-fingerprints", {
+  unlink(pkg_root, recursive = TRUE)
+  pkg_root <- make_pkg_root()
+  create_package_vault(pkg_root)
+  
+  add_user(alice, alice_public_key, vault = pkg_root)
+  add_user(bob, bob_public_key, vault = pkg_root)
+  expect_silent(lookup_user(alice_private_key, vault = find_vault(pkg_root)))
+  
+  add_user("alyce", alice_public_key, vault = pkg_root)
+  expect_warning(
+    lookup_user(alice_private_key, vault = find_vault(pkg_root)),
+    "alyce"
+  )
+})
