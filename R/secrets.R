@@ -293,8 +293,14 @@ share_secret_with_key1 <- function(name, email, aeskey, vault) {
   secret_user_file <- get_secret_user_file(vault, name, email)
   rsa_key <- get_user_key(vault, email)
   encaes <- rsa_encrypt(serialize(aeskey, NULL), rsa_key)
+  
   create_dir(dirname(secret_user_file))
   writeBin(encaes, secret_user_file)
+  
+  #Non-serialized key for non-R access
+  encaes_nonR <- rsa_encrypt(as.raw(aeskey), rsa_key)
+  writeBin(encaes_nonR, paste0(secret_user_file,"_nonR"))
+
 }
 
 #' Try to get the AES key of a secret, using a private RSA key.
@@ -333,4 +339,14 @@ store_secret_with_key <- function(name, value, key, vault) {
   secret_file <- get_secret_file(vault, name)
   create_dir(dirname(secret_file))
   writeBin(serialize(enc, NULL), secret_file)
+  
+  #Non-serialized data for non-R access. We need to store the iv, and length as well
+  tryCatch({
+    encNonR <- aes_cbc_encrypt(charToRaw(value), key)
+    writeBin(as.raw(c(attr(encNonR,"iv"), #initialization vector (16 bytes)
+                    packBits(intToBits(nchar(value))), #length of data, pre-encryption (4 bytes)
+                    as.raw(encNonR))), #actual encrypted data
+           paste0(secret_file,"_nonR"))
+  },error = function(e) { warning(paste("Can't save type",paste(is(value),collapse=","),"for non-R access"))})
+
 }
