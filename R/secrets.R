@@ -291,8 +291,13 @@ share_secret_with_key <- function(name, users, aeskey, vault) {
 
 share_secret_with_key1 <- function(name, email, aeskey, vault) {
   secret_user_file <- get_secret_user_file(vault, name, email)
-  rsa_key <- get_user_key(vault, email)
-  encaes <- rsa_encrypt(serialize(aeskey, NULL), rsa_key)
+  user_key <- get_user_key(vault, email)
+  if (inherits(user_key, "ed25519"))
+    encrypt <- sodium::auth_encrypt
+  else
+    encrypt <- rsa_encrypt
+
+  encaes <- encrypt(serialize(aeskey, NULL), key = local_key(), pubkey = user_key)
   create_dir(dirname(secret_user_file))
   writeBin(encaes, secret_user_file)
 }
